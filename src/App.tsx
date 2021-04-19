@@ -1,12 +1,12 @@
 import React from "react";
-import MainPage from "./containers/MainPage";
+import MapPage from "./containers/MapPage";
 import Header from "./components/others/Header";
 
 const App: React.FC = () => {
   return (
     <>
       <Header />
-      <MainPage />
+      <MapPage />
     </>
   );
 };

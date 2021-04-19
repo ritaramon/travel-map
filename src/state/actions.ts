@@ -4,6 +4,7 @@ import {
   UPDATE_DATA,
   SET_DATA,
   DELETE_CIRCLE,
+  SET_SELECTED_CIRCLE_ID,
 } from "./constants";
 
 export type Action = {
@@ -15,6 +16,13 @@ export const toggleSidebar = (): Action => {
   return {
     type: TOGGLE_SIDEBAR,
     payload: undefined,
+  };
+};
+
+export const setSelectedCircleId = (payload: string): Action => {
+  return {
+    type: SET_SELECTED_CIRCLE_ID,
+    payload,
   };
 };
 

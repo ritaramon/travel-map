@@ -1,7 +1,5 @@
-export type CellData = {
+export type CellData = CellCoordinates & {
   _id?: string;
-  x: number;
-  y: number;
   data: CellDataRadiusDetails;
 };
 
@@ -13,4 +11,14 @@ type CellDataRadiusDetails = {
     info?: string;
   };
   createdAt?: string;
+};
+
+export type CellCoordinates = {
+  x: number;
+  y: number;
+};
+
+export type AddElementResponse = {
+  status: number;
+  id: string;
 };

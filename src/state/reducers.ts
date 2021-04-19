@@ -3,6 +3,7 @@ import {
   UPDATE_DATA,
   SET_DATA,
   DELETE_CIRCLE,
+  SET_SELECTED_CIRCLE_ID,
 } from "./constants";
 import { Action } from "./actions";
 import { combineReducers } from "redux";
@@ -10,6 +11,7 @@ import { CellData } from "../globalTypes";
 
 type AppData = {
   isSidebarVisible: boolean;
+  selectedCircleId: string;
 };
 
 type ApiData = {
@@ -23,6 +25,7 @@ export type AppState = {
 
 const defaultAppData: AppData = {
   isSidebarVisible: true,
+  selectedCircleId: "",
 };
 
 const defaultApiData: ApiData = {
@@ -33,6 +36,8 @@ const appData = (state = defaultAppData, action: Action): AppData => {
   switch (action.type) {
     case TOGGLE_SIDEBAR:
       return { ...state, isSidebarVisible: !state.isSidebarVisible };
+    case SET_SELECTED_CIRCLE_ID:
+      return { ...state, selectedCircleId: action.payload };
     default:
       return state;
   }
@@ -50,7 +55,7 @@ const apiData = (state = defaultApiData, action: Action): ApiData => {
     }
     case DELETE_CIRCLE: {
       const filteredCircles = state.data.filter(
-        (x) => x._id !== action.payload._id
+        (x) => x._id !== action.payload
       );
       return { ...state, data: filteredCircles };
     }

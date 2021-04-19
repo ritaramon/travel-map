@@ -19,7 +19,7 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   padding: 8px 16px;
-  box-display: border-box;
+  box-sizing: border-box;
 `;
 
 export default Header;
