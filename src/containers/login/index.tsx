@@ -7,14 +7,22 @@ import PageWrapper from "../../components/wrappers/PageWrapper";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
 
 const LoginPage: React.FC = () => {
+  const handleFormSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log(event);
+  };
   return (
     <PageWrapper>
       <SectionWrapper fullHeight={true}>
         <h2>Login</h2>
         <FormWrapper>
-          <Form>
-            <Input type="email" placeholder="Enter email"></Input>
-            <Input type="password" placeholder="Enter password"></Input>
+          <Form onSubmit={handleFormSubmit}>
+            <Input name="username" type="text" placeholder="Enter username" />
+            <Input
+              name="password"
+              type="password"
+              placeholder="Enter password"
+            />
             <DefaultButton>LOGIN</DefaultButton>
             Do not have an account yet? Register!
           </Form>

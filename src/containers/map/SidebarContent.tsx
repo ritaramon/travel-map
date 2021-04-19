@@ -33,6 +33,7 @@ const SidebarContent: React.FC = () => {
     e.preventDefault();
     if (!info) return;
     const target = e.target as HTMLFormElement;
+    console.log(e);
     const textArea = target[0] as HTMLTextAreaElement;
     const elementInfo = { ...info };
     elementInfo.data.data.info = textArea.value;
@@ -60,6 +61,7 @@ const SidebarContent: React.FC = () => {
           <>
             <Form ref={formRef} onSubmit={handleSubmit}>
               <TextArea
+                name="description"
                 rows={8}
                 defaultValue={info?.data.data.info ?? ""}
                 placeholder="Add details.."
