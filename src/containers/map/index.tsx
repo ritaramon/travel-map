@@ -8,9 +8,10 @@ import SidebarContent from "./SidebarContent";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../state/reducers";
-import { setData, updateData } from "../../state/actions";
+import { setData, setSelectedCircleId, updateData } from "../../state/actions";
 import { AddElementResponse, CellData } from "../../globalTypes";
 import MapElement from "./MapElement";
+import Header from "../../components/others/Header";
 
 const MapPage: React.FC = () => {
   const featureGroup = useRef<FeatureGroup<
@@ -54,6 +55,7 @@ const MapPage: React.FC = () => {
         if (response.status === 200) {
           elementData._id = response.id;
           dispatch(updateData(elementData));
+          dispatch(setSelectedCircleId(response.id));
         }
       })
       .finally(() => {
@@ -66,12 +68,13 @@ const MapPage: React.FC = () => {
 
   return (
     <>
+      <Header />
       <PageWrapper>
         <Sidebar
           docked={sidebarVisibility}
           sidebar={<SidebarContent />}
           styles={{
-            sidebar: { background: "#EBEBEB", width: "300px" },
+            sidebar: { backgroundColor: "#f5f6f6", width: "240px" },
           }}
         >
           <Map
@@ -79,7 +82,6 @@ const MapPage: React.FC = () => {
             center={[54.68715, 25.279652]}
             zoom={13}
             minZoom={3}
-            // onClick={onLayerClick}
             maxBoundsViscosity={1.0}
             maxBounds={bounds}
           >

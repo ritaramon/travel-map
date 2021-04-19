@@ -53,24 +53,30 @@ const SidebarContent: React.FC = () => {
   };
 
   return (
-    <SectionWrapper>
-      <h2>Details</h2>
+    <>
+      <SectionWrapper>
+        <h2>Details</h2>
+        {selectedCircleId && (
+          <>
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <TextArea
+                rows={8}
+                defaultValue={info?.data.data.info ?? ""}
+                placeholder="Add details.."
+              />
+              <DefaultButton>SAVE</DefaultButton>
+            </Form>
+          </>
+        )}
+      </SectionWrapper>
       {selectedCircleId && (
-        <>
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <TextArea
-              rows={8}
-              defaultValue={info?.data.data.info ?? ""}
-              placeholder="Add details.."
-            />
-            <DefaultButton>Save</DefaultButton>
-          </Form>
+        <SectionWrapper>
           <RedButton type="button" onClick={handleElementDelete}>
-            Delete
+            DELETE
           </RedButton>
-        </>
+        </SectionWrapper>
       )}
-    </SectionWrapper>
+    </>
   );
 };
 

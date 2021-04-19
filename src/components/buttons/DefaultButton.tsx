@@ -8,16 +8,17 @@ const DefaultButton: React.FC<
   height: 48px;
   text-align: center;
   padding: 8px;
-  font-size: 12px;
+  font-size: 14px;
+  letter-spacing: 2px;
   outline: none;
   border: none;
-  border-radius: 8px;
+  border-radius: 2px;
   cursor: pointer;
-  background-color: #2b7a77;
+  background-color: #678786;
   color: #ffffff;
-  margin: 8px 0;
+  margin: 16px 0;
   &:hover {
-    background-color: #308885;
+    background-color: #759593;
   }
 `;
 

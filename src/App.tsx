@@ -1,12 +1,17 @@
 import React from "react";
-import MapPage from "./containers/MapPage";
-import Header from "./components/others/Header";
+import MapPage from "./containers/map";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import LoginPage from "./containers/login";
 
 const App: React.FC = () => {
   return (
     <>
-      <Header />
-      <MapPage />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" component={MapPage} exact />
+          <Route path="/login" component={LoginPage} />
+        </Switch>
+      </BrowserRouter>
     </>
   );
 };

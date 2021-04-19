@@ -5,9 +5,9 @@ import DefaultButton from "./DefaultButton";
 const RedButton: React.FC<
   React.ButtonHTMLAttributes<HTMLButtonElement>
 > = styled(DefaultButton)`
-  background-color: #e63946;
+  background-color: #d64933;
   &:hover {
-    background-color: #e94957;
+    background-color: #da5844;
   }
 `;
 
