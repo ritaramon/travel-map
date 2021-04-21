@@ -48,7 +48,6 @@ export const addElement = async (
     },
   });
   const response = await request;
-  console.log(response);
   return { status: response.status, id: response.data.id };
 };
 

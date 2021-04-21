@@ -8,6 +8,7 @@
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.37",
     "axios": "^0.21.1",
+    "firebase": "^8.4.1",
     "konva": "^7.2.5",
     "leaflet": "^1.7.1",
     "leaflet-draw": "^1.0.4",

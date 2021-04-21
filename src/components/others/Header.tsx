@@ -3,12 +3,27 @@ import styled from "styled-components";
 import CircleButton from "../buttons/CircleButton";
 import { toggleSidebar } from "../../state/actions";
 import { useDispatch } from "react-redux";
+import { auth } from "../../config/firebaseConfig";
+import { Link, useHistory } from "react-router-dom";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleLogOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        history.push("/login");
+      })
+      .catch((e) => console.log(e));
+  };
   return (
     <StyledHeader>
       <CircleButton onClick={() => dispatch(toggleSidebar())}></CircleButton>
+      <Link to="#" onClick={handleLogOut}>
+        Log out
+      </Link>
     </StyledHeader>
   );
 };
@@ -18,6 +33,7 @@ const StyledHeader = styled.header`
   height: 60px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 8px 16px;
   box-sizing: border-box;
   -webkit-box-shadow: 0 0 20px 0 rgb(0 0 0 / 15%);

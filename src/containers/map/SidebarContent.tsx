@@ -32,11 +32,9 @@ const SidebarContent: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!info) return;
-    const target = e.target as HTMLFormElement;
-    console.log(e);
-    const textArea = target[0] as HTMLTextAreaElement;
+    const form = e.target as HTMLFormElement;
     const elementInfo = { ...info };
-    elementInfo.data.data.info = textArea.value;
+    elementInfo.data.data.info = form.description.value;
 
     addElement(elementInfo).then((response: AddElementResponse) => {
       if (response.status === 200) {

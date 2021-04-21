@@ -8,32 +8,36 @@ import PageWrapper from "../../components/wrappers/PageWrapper";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
 import { auth } from "../../config/firebaseConfig";
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
   const history = useHistory();
-  const handleLoginFormSubmit = (e: React.FormEvent) => {
+  const handleRegisterFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     auth
-      .signInWithEmailAndPassword(form.email.value, form.password.value)
+      .createUserWithEmailAndPassword(form.email.value, form.password.value)
       .then(() => {
-        history.push("/");
+        history.push("/login");
       })
       .catch((e) => console.log(e));
   };
   return (
     <PageWrapper>
       <SectionWrapper fullHeight={true}>
-        <h2>Login</h2>
+        <h2>Register</h2>
         <FormWrapper>
-          <Form onSubmit={handleLoginFormSubmit}>
-            <Input name="email" type="text" placeholder="Enter email" />
+          <Form onSubmit={handleRegisterFormSubmit}>
+            <Input name="email" type="text" placeholder="Enter username" />
             <Input
               name="password"
               type="password"
               placeholder="Enter password"
             />
-            <DefaultButton>LOGIN</DefaultButton>
-            Do not have an account yet? Register!
+            <Input
+              name="password-confirm"
+              type="password"
+              placeholder="Repeat password"
+            />
+            <DefaultButton>Register</DefaultButton>
           </Form>
         </FormWrapper>
       </SectionWrapper>
@@ -47,4 +51,4 @@ const FormWrapper = styled.div`
   width: 500px;
   max-width: 100%;
 `;
-export default LoginPage;
+export default RegisterPage;
