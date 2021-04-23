@@ -7,7 +7,7 @@ export const getElements = async (boardData: number[]): Promise<CellData[]> => {
     boardData[1]
   }&w=${boardData[2]}&h=${boardData[3]}`;
 
-  const request = axios(apiPath, {
+  const request = axios("aaa", {
     method: "GET",
   });
   return (await request).data;

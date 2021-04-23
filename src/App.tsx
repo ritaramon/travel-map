@@ -12,8 +12,29 @@ const App: React.FC = () => {
   useEffect(() => {
     auth.onAuthStateChanged(() => {
       setLoading(false);
+      // getUserInfo();
     });
   }, []);
+
+  // const getUserInfo = async () => {
+  //   if (auth.currentUser) {
+  //     const { uid } = auth.currentUser;
+  //     const userDoc = dataCollection.doc(uid);
+  //     const userData = await userDoc.get();
+  //     const data = userData.data();
+  //     console.log(data?.count);
+  //     if (userData.exists) {
+  //       await userDoc.set({
+  //         count: data?.count + 10,
+  //       });
+  //     } else {
+  //       await userDoc.set({
+  //         count: 16,
+  //       });
+  //     }
+  //     console.log(data?.count);
+  //   }
+  // };
   if (loading) return <div />;
   return (
     <>

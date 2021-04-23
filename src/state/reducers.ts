@@ -4,6 +4,7 @@ import {
   SET_DATA,
   DELETE_CIRCLE,
   SET_SELECTED_CIRCLE_ID,
+  FETCH_MAP_ELEMENTS,
 } from "./constants";
 import { Action } from "./actions";
 import { combineReducers } from "redux";

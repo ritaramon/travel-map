@@ -2,13 +2,14 @@ import React, { useEffect, useRef } from "react";
 import { Map, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import Leaflet, { LeafletMouseEvent } from "leaflet";
-import { addElement, getElements } from "../../apis/mapDataApi";
+import { addElement } from "../../apis/mapDataApi";
 import Sidebar from "react-sidebar";
 import SidebarContent from "./SidebarContent";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../state/reducers";
-import { setData, setSelectedCircleId, updateData } from "../../state/actions";
+import { setSelectedCircleId, updateData } from "../../state/actions";
+import * as actions from "../../state/actions";
 import { AddElementResponse, CellData } from "../../globalTypes";
 import MapElement from "./MapElement";
 import Header from "../../components/others/Header";
@@ -31,9 +32,7 @@ const MapPage: React.FC = () => {
     (state: AppState) => state.appData.selectedCircleId
   );
   useEffect(() => {
-    getElements([0, 0, 180, 90]).then((response) => {
-      dispatch(setData(response));
-    });
+    dispatch(actions.fetchMapElements());
   }, []);
 
   const handleElementCreation = (event: LeafletMouseEvent) => {
