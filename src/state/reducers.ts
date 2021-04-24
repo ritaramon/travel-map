@@ -1,10 +1,10 @@
 import {
   TOGGLE_SIDEBAR,
-  UPDATE_DATA,
+  UPDATE_DATA_BY_ID,
   SET_DATA,
   DELETE_CIRCLE,
   SET_SELECTED_CIRCLE_ID,
-  FETCH_MAP_ELEMENTS,
+  UPDATE_DATA_BY_COORDINATES,
 } from "./constants";
 import { Action } from "./actions";
 import { combineReducers } from "redux";
@@ -48,9 +48,16 @@ const apiData = (state = defaultApiData, action: Action): ApiData => {
   switch (action.type) {
     case SET_DATA:
       return { ...state, data: action.payload };
-    case UPDATE_DATA: {
+    case UPDATE_DATA_BY_ID: {
       const filteredCircles = state.data.filter(
         (x) => x._id !== action.payload._id
+      );
+      return { ...state, data: [...filteredCircles, action.payload] };
+    }
+    case UPDATE_DATA_BY_COORDINATES: {
+      const filteredCircles = state.data.filter(
+        (element) =>
+          element.x !== action.payload.x && element.y !== action.payload.x
       );
       return { ...state, data: [...filteredCircles, action.payload] };
     }

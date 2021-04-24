@@ -1,8 +1,10 @@
 import axios from "axios";
 import { apiBaseUrl, apiPaths } from "../constants/apiConstans";
-import { CellData, CellCoordinates, AddElementResponse } from "../globalTypes";
+import { CellData, AddElementResponse } from "../globalTypes";
 
-export const getElements = async (boardData: number[]): Promise<CellData[]> => {
+export const getBoardElements = async (
+  boardData: number[]
+): Promise<CellData[]> => {
   const apiPath = `${apiBaseUrl + apiPaths.getBoard}?x=${boardData[0]}&y=${
     boardData[1]
   }&w=${boardData[2]}&h=${boardData[3]}`;
@@ -13,26 +15,11 @@ export const getElements = async (boardData: number[]): Promise<CellData[]> => {
   return (await request).data;
 };
 
-export const getElement = async (
-  elementCoords: CellCoordinates
-): Promise<CellData> => {
-  const apiPath = apiBaseUrl + apiPaths.getCell;
-  const request = axios({
-    method: "GET",
-    url: apiPath,
-    data: {
-      x: elementCoords.x,
-      y: elementCoords.y,
-    },
-  });
-  return (await request).data;
-};
-
-export const addElement = async (
+export const addBoardElement = async (
   elementData: CellData
 ): Promise<AddElementResponse> => {
   const apiPath = apiBaseUrl + apiPaths.postBoard;
-
+  console.log(elementData);
   const request = axios({
     method: "POST",
     url: apiPath,
@@ -51,7 +38,7 @@ export const addElement = async (
   return { status: response.status, id: response.data.id };
 };
 
-export const deleteElement = async (circleId: string): Promise<number> => {
+export const deleteBoardElement = async (circleId: string): Promise<number> => {
   const apiPath = apiBaseUrl + apiPaths.deleteCell;
   const request = axios({
     method: "POST",

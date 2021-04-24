@@ -1,13 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
-import { addElement, deleteElement } from "../../apis/mapDataApi";
+import { addBoardElement, deleteBoardElement } from "../../apis/mapDataApi";
 import TextArea from "../../components/inputs/TextArea";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import RedButton from "../../components/buttons/DeleteButton";
 import Form from "../../components/others/Form";
 import { AddElementResponse, CellData } from "../../globalTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCircle, updateData } from "../../state/actions";
+import { deleteCircleRequest, updateDataById } from "../../state/actions";
 import { AppState } from "../../state/reducers";
 
 const SidebarContent: React.FC = () => {
@@ -36,17 +36,9 @@ const SidebarContent: React.FC = () => {
     const elementInfo = { ...info };
     elementInfo.data.data.info = form.description.value;
 
-    addElement(elementInfo).then((response: AddElementResponse) => {
+    addBoardElement(elementInfo).then((response: AddElementResponse) => {
       if (response.status === 200) {
-        dispatch(updateData(elementInfo));
-      }
-    });
-  };
-
-  const handleElementDelete = () => {
-    deleteElement(selectedCircleId).then((response: number) => {
-      if (response === 200) {
-        dispatch(deleteCircle(selectedCircleId));
+        dispatch(updateDataById(elementInfo));
       }
     });
   };
@@ -71,7 +63,10 @@ const SidebarContent: React.FC = () => {
       </SectionWrapper>
       {selectedCircleId && (
         <SectionWrapper>
-          <RedButton type="button" onClick={handleElementDelete}>
+          <RedButton
+            type="button"
+            onClick={() => dispatch(deleteCircleRequest(selectedCircleId))}
+          >
             DELETE
           </RedButton>
         </SectionWrapper>

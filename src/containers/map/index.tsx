@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from "react";
 import { Map, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import Leaflet, { LeafletMouseEvent } from "leaflet";
-import { addElement } from "../../apis/mapDataApi";
+import { addBoardElement } from "../../apis/mapDataApi";
 import Sidebar from "react-sidebar";
 import SidebarContent from "./SidebarContent";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../state/reducers";
-import { setSelectedCircleId, updateData } from "../../state/actions";
+import { setSelectedCircleId, updateDataById } from "../../state/actions";
 import * as actions from "../../state/actions";
 import { AddElementResponse, CellData } from "../../globalTypes";
 import MapElement from "./MapElement";
@@ -48,18 +48,8 @@ const MapPage: React.FC = () => {
         },
       },
     };
-
-    addElement(elementData)
-      .then((response: AddElementResponse) => {
-        if (response.status === 200) {
-          elementData._id = response.id;
-          dispatch(updateData(elementData));
-          dispatch(setSelectedCircleId(response.id));
-        }
-      })
-      .finally(() => {
-        featureGroup?.current?.leafletElement.removeLayer(event.layer);
-      });
+    featureGroup?.current?.leafletElement.removeLayer(event.layer);
+    dispatch(actions.addCircle(elementData));
   };
   const corner1 = Leaflet.latLng(-180, -90);
   const corner2 = Leaflet.latLng(180, 90);
@@ -99,7 +89,7 @@ const MapPage: React.FC = () => {
                   marker: false,
                   circlemarker: false,
                   circle: {
-                    shapeOptions: { color: "#FCA311", weight: "1" },
+                    shapeOptions: { color: "#FCA311", weight: "2" },
                     showLength: false,
                     metric: false,
                     clickable: true,

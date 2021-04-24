@@ -1,5 +1,6 @@
 export type CellData = CellCoordinates & {
   _id?: string;
+  pending?: boolean;
   data: CellDataRadiusDetails;
 };
 
