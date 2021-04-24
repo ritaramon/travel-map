@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
@@ -20,6 +20,10 @@ const LoginPage: React.FC = () => {
       })
       .catch((e) => console.log(e));
   };
+
+  if (auth.currentUser) {
+    return <Redirect to="/" />;
+  }
   return (
     <PageWrapper>
       <SectionWrapper fullHeight={true}>

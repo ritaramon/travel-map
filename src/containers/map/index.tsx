@@ -36,24 +36,30 @@ const MapPage: React.FC = () => {
   }, []);
 
   const handleElementCreation = (event: LeafletMouseEvent) => {
-    const elementData: CellData = {
-      x: event.layer._latlng.lat,
-      y: event.layer._latlng.lng,
-      data: {
-        name: "user123",
-        color: "#000000",
-        data: {
-          radius: event.layer._mRadius,
-          info: "",
-        },
-      },
-    };
     featureGroup?.current?.leafletElement.removeLayer(event.layer);
-    dispatch(actions.addCircle(elementData));
+    console.log(event.layer._latlng.lat + "" + event.layer._latlng.lng);
+    if (
+      -180 <= event.layer._latlng.lng &&
+      event.layer._latlng.lng <= 180 &&
+      -90 <= event.layer._latlng.lat &&
+      event.layer._latlng.lat <= 90
+    ) {
+      const elementData: CellData = {
+        x: event.layer._latlng.lat,
+        y: event.layer._latlng.lng,
+        data: {
+          name: "user123",
+          color: "#000000",
+          data: {
+            radius: event.layer._mRadius,
+            info: "",
+          },
+        },
+      };
+
+      dispatch(actions.addCircle(elementData));
+    }
   };
-  const corner1 = Leaflet.latLng(-180, -90);
-  const corner2 = Leaflet.latLng(180, 90);
-  const bounds = Leaflet.latLngBounds(corner1, corner2);
 
   return (
     <>
@@ -66,15 +72,9 @@ const MapPage: React.FC = () => {
             sidebar: { backgroundColor: "#f5f6f6", width: "240px" },
           }}
         >
-          <Map
-            worldCopyfJump={true}
-            center={[54.68715, 25.279652]}
-            zoom={13}
-            minZoom={3}
-            maxBoundsViscosity={1.0}
-            maxBounds={bounds}
-          >
+          <Map center={[50, 50]} zoom={4} minZoom={1}>
             <TileLayer
+              noWrap={true}
               attribution='&copy; <a href="https://carto.com/">carto.com</a> contributors'
               url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
             />

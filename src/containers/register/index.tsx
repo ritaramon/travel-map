@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
@@ -25,14 +25,15 @@ const RegisterPage: React.FC = () => {
       email: "",
       password: "",
     };
-    if (password.length < 6) {
-      validationErrors.password = "ust be at least 6 characters long";
-    } else if (!/\d/.test(password)) {
-      validationErrors.password = "Password must contain a digit";
-    }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       validationErrors.email = "Invalid email format";
     }
+    if (password.length < 7) {
+      validationErrors.password = "ust be at least 7 characters long";
+    } else if (!/\d/.test(password)) {
+      validationErrors.password = "Password must contain a digit";
+    }
+
     setFormErrors(validationErrors);
 
     auth
@@ -42,6 +43,10 @@ const RegisterPage: React.FC = () => {
       })
       .catch((e) => console.log(e));
   };
+
+  if (auth.currentUser) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <PageWrapper>
