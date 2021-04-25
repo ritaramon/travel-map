@@ -11,7 +11,7 @@ const config = {
 const Firebase = firebase.initializeApp(config);
 
 const database = Firebase.firestore();
-export const dataCollection = database.collection("data");
+export const categoriesCollection = database.collection("categories");
 
 export const auth = firebase.auth();
 

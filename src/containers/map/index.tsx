@@ -1,18 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Map, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
-import Leaflet, { LeafletMouseEvent } from "leaflet";
-import { addBoardElement } from "../../apis/mapDataApi";
+import { LeafletMouseEvent } from "leaflet";
 import Sidebar from "react-sidebar";
 import SidebarContent from "./SidebarContent";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../state/reducers";
-import { setSelectedCircleId, updateDataById } from "../../state/actions";
 import * as actions from "../../state/actions";
-import { AddElementResponse, CellData } from "../../globalTypes";
+import { CellData } from "../../globalTypes";
 import MapElement from "./MapElement";
 import Header from "../../components/others/Header";
+import CategoriesModal from "./Modal";
 
 const MapPage: React.FC = () => {
   const featureGroup = useRef<FeatureGroup<
@@ -65,6 +64,7 @@ const MapPage: React.FC = () => {
     <>
       <Header />
       <PageWrapper>
+        <CategoriesModal />
         <Sidebar
           docked={sidebarVisibility}
           sidebar={<SidebarContent />}

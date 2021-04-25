@@ -23,3 +23,10 @@ export type AddElementResponse = {
   status: number;
   id: string;
 };
+
+export type Category = {
+  color: string;
+  name: string;
+  userId?: string;
+  id?: string;
+};

@@ -5,10 +5,12 @@ import {
   DELETE_CIRCLE,
   SET_SELECTED_CIRCLE_ID,
   UPDATE_DATA_BY_COORDINATES,
+  ADD_CATEGORY,
 } from "./constants";
 import { Action } from "./actions";
 import { combineReducers } from "redux";
-import { CellData } from "../globalTypes";
+import { Category, CellData } from "../globalTypes";
+import { categoriesCollection } from "../config/firebaseConfig";
 
 type AppData = {
   isSidebarVisible: boolean;
@@ -19,9 +21,14 @@ type ApiData = {
   data: CellData[];
 };
 
+type CategoriesData = {
+  categories: Category[];
+};
+
 export type AppState = {
   appData: AppData;
   apiData: ApiData;
+  categoriesData: CategoriesData;
 };
 
 const defaultAppData: AppData = {
@@ -31,6 +38,10 @@ const defaultAppData: AppData = {
 
 const defaultApiData: ApiData = {
   data: [],
+};
+
+const defaultCategoriesData: CategoriesData = {
+  categories: [],
 };
 
 const appData = (state = defaultAppData, action: Action): AppData => {
@@ -72,7 +83,20 @@ const apiData = (state = defaultApiData, action: Action): ApiData => {
   }
 };
 
+const categoriesData = (
+  state = defaultCategoriesData,
+  action: Action
+): CategoriesData => {
+  switch (action.type) {
+    case ADD_CATEGORY:
+      return { ...state, categories: [...state.categories, action.payload] };
+    default:
+      return state;
+  }
+};
+
 export const combinedReducer = combineReducers({
   appData: appData,
   apiData: apiData,
+  categoriesData: categoriesData,
 });

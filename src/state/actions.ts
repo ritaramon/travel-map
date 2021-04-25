@@ -1,4 +1,4 @@
-import { CellData } from "../globalTypes";
+import { Category, CellData } from "../globalTypes";
 import {
   TOGGLE_SIDEBAR,
   UPDATE_DATA_BY_ID,
@@ -9,6 +9,8 @@ import {
   ADD_CIRCLE_REQUEST,
   UPDATE_DATA_BY_COORDINATES,
   DELETE_CIRCLE_REQUEST,
+  ADD_CATEGORY_REQUEST,
+  ADD_CATEGORY,
 } from "./constants";
 
 export type Action = {
@@ -56,5 +58,15 @@ export const deleteCircle = (payload: string): Action => ({
 
 export const deleteCircleRequest = (payload: string): Action => ({
   type: DELETE_CIRCLE_REQUEST,
+  payload,
+});
+
+export const addCategoryRequest = (payload: Category): Action => ({
+  type: ADD_CATEGORY_REQUEST,
+  payload,
+});
+
+export const addCategory = (payload: Category): Action => ({
+  type: ADD_CATEGORY,
   payload,
 });

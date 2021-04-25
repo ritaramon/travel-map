@@ -19,7 +19,6 @@ export const addBoardElement = async (
   elementData: CellData
 ): Promise<AddElementResponse> => {
   const apiPath = apiBaseUrl + apiPaths.postBoard;
-  console.log(elementData);
   const request = axios({
     method: "POST",
     url: apiPath,

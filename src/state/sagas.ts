@@ -1,11 +1,15 @@
 import { all, call, put, takeEvery } from "redux-saga/effects";
 import * as actions from "./actions";
 import * as api from "../apis/mapDataApi";
+import * as firebaseApi from "../apis/firebaseApi";
+import firebase from "firebase/app";
 import {
+  ADD_CATEGORY_REQUEST,
   ADD_CIRCLE_REQUEST,
   DELETE_CIRCLE_REQUEST,
   FETCH_MAP_ELEMENTS,
 } from "./constants";
+import { auth } from "../config/firebaseConfig";
 
 function* fetchElements(): Generator {
   try {
@@ -54,11 +58,27 @@ function* watchDeleteCircleRequest() {
   yield takeEvery(DELETE_CIRCLE_REQUEST, deleteCircle);
 }
 
+function* addCategory(action: any): Generator {
+  try {
+    action.payload.userId = auth.currentUser?.uid;
+    const response: any = yield call(firebaseApi.addCategory, action.payload);
+    action.payload.id = response.id;
+    yield put(actions.addCategory(action.payload));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* watchAddCategoryRequest() {
+  yield takeEvery(ADD_CATEGORY_REQUEST, addCategory);
+}
+
 function* appSaga(): Generator {
   yield all([
     watchFetchMapElements(),
     watchAddElement(),
     watchDeleteCircleRequest(),
+    watchAddCategoryRequest(),
   ]);
 }
 
