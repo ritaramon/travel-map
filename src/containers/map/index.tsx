@@ -32,6 +32,7 @@ const MapPage: React.FC = () => {
   );
   useEffect(() => {
     dispatch(actions.fetchMapElements());
+    dispatch(actions.setCategoriesRequest());
   }, []);
 
   const handleElementCreation = (event: LeafletMouseEvent) => {

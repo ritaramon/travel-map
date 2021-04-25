@@ -5,11 +5,8 @@ import Input from "../../components/inputs/Input";
 import Form from "../../components/others/Form";
 import ColorPicker from "../../components/others/ColorPicker";
 import ErrorMessage from "../../components/messages/ErrorMessage";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addCategoryRequest } from "../../state/actions";
-import { AppState } from "../../state/reducers";
-import { Category } from "../../globalTypes";
-import { useTable } from "react-table";
 import CategoriesTable from "./CategoriesTable";
 
 const CategoriesModal: React.FC = () => {

@@ -1,31 +1,35 @@
-import { LeafletEvent } from "leaflet";
 import React from "react";
-import { Circle } from "react-leaflet";
 import { useDispatch, useSelector } from "react-redux";
 import { useTable } from "react-table";
 import DeleteButton from "../../components/buttons/DeleteButton";
 import ColorPicker from "../../components/others/ColorPicker";
-import { Category, CellData } from "../../globalTypes";
-import { setSelectedCircleId } from "../../state/actions";
+import { Category } from "../../globalTypes";
 import { AppState } from "../../state/reducers";
-
-// interface Props {
-//   element: CellData;
-//   isSelected: boolean;
-// }
+import * as actions from "../../state/actions";
 
 const CategoriesTable: React.FC = () => {
+  const dispatch = useDispatch();
   const categories: Category[] = useSelector(
     (state: AppState) => state.categoriesData.categories
   );
 
   const data = React.useMemo(
     () =>
-      categories.map((x) => {
+      categories.map((category) => {
         return {
-          col1: x.name,
-          col2: <ColorPicker disableSelect defaultColor={x.color} />,
-          col3: <DeleteButton>delete</DeleteButton>,
+          col1: category.name,
+          col2: <ColorPicker disableSelect defaultColor={category.color} />,
+          col3: (
+            <DeleteButton
+              onClick={() =>
+                category.id
+                  ? dispatch(actions.deleteCategoryRequest(category.id))
+                  : null
+              }
+            >
+              delete
+            </DeleteButton>
+          ),
         };
       }),
     [categories]
@@ -60,9 +64,9 @@ const CategoriesTable: React.FC = () => {
   return (
     <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
       <thead>
-        {headerGroups.map((headerGroup: any, index: any) => (
+        {headerGroups.map((headerGroup: any, index: number) => (
           <tr key={index} {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column: any, index: any) => (
+            {headerGroup.headers.map((column: any, index: number) => (
               <th
                 key={index}
                 {...column.getHeaderProps()}
@@ -80,11 +84,11 @@ const CategoriesTable: React.FC = () => {
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row: any, index: any) => {
+        {rows.map((row: any, index: number) => {
           prepareRow(row);
           return (
             <tr key={index} {...row.getRowProps()}>
-              {row.cells.map((cell: any, index: any) => {
+              {row.cells.map((cell: any, index: number) => {
                 return (
                   <td
                     key={index}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MapPage from "./containers/map";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginPage from "./containers/login";
 import RegisterPage from "./containers/register";
 import AuthRoute from "./components/others/AuthRoute";

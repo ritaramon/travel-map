@@ -6,10 +6,13 @@ import firebase from "firebase/app";
 import {
   ADD_CATEGORY_REQUEST,
   ADD_CIRCLE_REQUEST,
+  DELETE_CATEGORY_REQUEST,
   DELETE_CIRCLE_REQUEST,
   FETCH_MAP_ELEMENTS,
+  SET_CATEGORIES_REQUEST,
 } from "./constants";
 import { auth } from "../config/firebaseConfig";
+import { Category } from "../globalTypes";
 
 function* fetchElements(): Generator {
   try {
@@ -73,12 +76,49 @@ function* watchAddCategoryRequest() {
   yield takeEvery(ADD_CATEGORY_REQUEST, addCategory);
 }
 
+function* setCategories(): Generator {
+  try {
+    const response: any = yield call(firebaseApi.getCategories);
+    const categories: Category[] = [];
+    response.forEach((doc: firebase.firestore.DocumentData) => {
+      const category = doc.data();
+      categories.push({
+        id: doc.id,
+        ...category,
+      });
+    });
+    yield put(actions.setCategories(categories));
+    console.log(categories);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* watchSetCategoriesRequest() {
+  yield takeEvery(SET_CATEGORIES_REQUEST, setCategories);
+}
+
+function* deleteCategory(action: any): Generator {
+  try {
+    yield call(firebaseApi.deleteCategory, action.payload);
+    yield put(actions.deleteCategory(action.payload));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* watchDeleteCategoryRequest() {
+  yield takeEvery(DELETE_CATEGORY_REQUEST, deleteCategory);
+}
+
 function* appSaga(): Generator {
   yield all([
     watchFetchMapElements(),
     watchAddElement(),
     watchDeleteCircleRequest(),
     watchAddCategoryRequest(),
+    watchSetCategoriesRequest(),
+    watchDeleteCategoryRequest(),
   ]);
 }
 

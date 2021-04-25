@@ -6,11 +6,12 @@ import {
   SET_SELECTED_CIRCLE_ID,
   UPDATE_DATA_BY_COORDINATES,
   ADD_CATEGORY,
+  SET_CATEGORIES,
+  DELETE_CATEGORY,
 } from "./constants";
 import { Action } from "./actions";
 import { combineReducers } from "redux";
 import { Category, CellData } from "../globalTypes";
-import { categoriesCollection } from "../config/firebaseConfig";
 
 type AppData = {
   isSidebarVisible: boolean;
@@ -90,6 +91,14 @@ const categoriesData = (
   switch (action.type) {
     case ADD_CATEGORY:
       return { ...state, categories: [...state.categories, action.payload] };
+    case SET_CATEGORIES:
+      return { ...state, categories: action.payload };
+    case DELETE_CATEGORY: {
+      const filteredCategories = state.categories.filter(
+        (category) => category.id !== action.payload
+      );
+      return { ...state, categories: filteredCategories };
+    }
     default:
       return state;
   }

@@ -11,6 +11,10 @@ import {
   DELETE_CIRCLE_REQUEST,
   ADD_CATEGORY_REQUEST,
   ADD_CATEGORY,
+  SET_CATEGORIES_REQUEST,
+  SET_CATEGORIES,
+  DELETE_CATEGORY_REQUEST,
+  DELETE_CATEGORY,
 } from "./constants";
 
 export type Action = {
@@ -20,6 +24,10 @@ export type Action = {
 
 export const fetchMapElements = (): Action => ({
   type: FETCH_MAP_ELEMENTS,
+});
+
+export const setCategoriesRequest = (): Action => ({
+  type: SET_CATEGORIES_REQUEST,
 });
 
 export const addCircle = (payload: CellData): Action => ({
@@ -68,5 +76,20 @@ export const addCategoryRequest = (payload: Category): Action => ({
 
 export const addCategory = (payload: Category): Action => ({
   type: ADD_CATEGORY,
+  payload,
+});
+
+export const setCategories = (payload: Category[]): Action => ({
+  type: SET_CATEGORIES,
+  payload,
+});
+
+export const deleteCategoryRequest = (payload: string): Action => ({
+  type: DELETE_CATEGORY_REQUEST,
+  payload,
+});
+
+export const deleteCategory = (payload: string): Action => ({
+  type: DELETE_CATEGORY,
   payload,
 });

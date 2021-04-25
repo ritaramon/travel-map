@@ -45,7 +45,8 @@ const RegisterPage: React.FC = () => {
     }
 
     setFormErrors(validationErrors);
-    if (validationErrors) return;
+    console.log(validationErrors);
+    if (Object.keys(formErrors).length) return;
 
     auth
       .createUserWithEmailAndPassword(form.email.value, form.password.value)

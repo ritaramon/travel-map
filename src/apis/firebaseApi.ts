@@ -15,3 +15,15 @@ export const addCategory = async (
     color: data.color,
   });
 };
+
+export const getCategories = async (): Promise<
+  firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+> => {
+  return await categoriesCollection
+    .where("userId", "==", auth.currentUser?.uid)
+    .get();
+};
+
+export const deleteCategory = async (id: string): Promise<void> => {
+  return await categoriesCollection.doc(id).delete();
+};
