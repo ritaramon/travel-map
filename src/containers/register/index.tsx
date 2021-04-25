@@ -9,32 +9,43 @@ import PageWrapper from "../../components/wrappers/PageWrapper";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
 import { auth } from "../../config/firebaseConfig";
 
+type RegistrationErrors = {
+  email?: string;
+  password?: string;
+  passwordConfirm?: string;
+};
+
+enum ErrorMessageText {
+  email = "Invalid email format",
+  password = "Password must contain a digit",
+  passwordMatch = "Passwords must match",
+}
+
 const RegisterPage: React.FC = () => {
-  const [formErrors, setFormErrors] = useState({
-    email: "",
-    password: "",
-  });
-  console.log(formErrors);
   const history = useHistory();
+
+  const [formErrors, setFormErrors] = useState<RegistrationErrors>({});
+
   const handleRegisterFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const password = form.password.value;
     const email = form.email.value;
-    const validationErrors = {
-      email: "",
-      password: "",
-    };
+    const passwordConfirm = form.passwordConfirm.value;
+    const validationErrors: RegistrationErrors = {};
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      validationErrors.email = "Invalid email format";
+      validationErrors.email = ErrorMessageText.email;
     }
-    if (password.length < 7) {
-      validationErrors.password = "ust be at least 7 characters long";
-    } else if (!/\d/.test(password)) {
-      validationErrors.password = "Password must contain a digit";
+    if (
+      !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/.test(password)
+    ) {
+      validationErrors.password = ErrorMessageText.password;
+    } else if (password !== passwordConfirm) {
+      validationErrors.passwordConfirm = ErrorMessageText.passwordMatch;
     }
 
     setFormErrors(validationErrors);
+    if (validationErrors) return;
 
     auth
       .createUserWithEmailAndPassword(form.email.value, form.password.value)
@@ -63,10 +74,11 @@ const RegisterPage: React.FC = () => {
             />
             <ErrorMessage>{formErrors.password}</ErrorMessage>
             <Input
-              name="password-confirm"
+              name="passwordConfirm"
               type="password"
               placeholder="Repeat password"
             />
+            <ErrorMessage>{formErrors.passwordConfirm}</ErrorMessage>
             <DefaultButton>Register</DefaultButton>
           </Form>
         </FormWrapper>
