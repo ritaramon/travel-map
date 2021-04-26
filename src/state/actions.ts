@@ -5,7 +5,6 @@ import {
   SET_DATA,
   DELETE_CIRCLE,
   SET_SELECTED_CIRCLE_ID,
-  FETCH_MAP_ELEMENTS,
   ADD_CIRCLE_REQUEST,
   UPDATE_DATA_BY_COORDINATES,
   DELETE_CIRCLE_REQUEST,
@@ -15,6 +14,9 @@ import {
   SET_CATEGORIES,
   DELETE_CATEGORY_REQUEST,
   DELETE_CATEGORY,
+  FETCH_MAP_DATA_REQUEST,
+  SET_LOADING,
+  DISPLAY_CATEGORY_MODAL,
 } from "./constants";
 
 export type Action = {
@@ -22,8 +24,8 @@ export type Action = {
   payload?: any;
 };
 
-export const fetchMapElements = (): Action => ({
-  type: FETCH_MAP_ELEMENTS,
+export const fetchMapDataRequest = (): Action => ({
+  type: FETCH_MAP_DATA_REQUEST,
 });
 
 export const setCategoriesRequest = (): Action => ({
@@ -37,6 +39,10 @@ export const addCircle = (payload: CellData): Action => ({
 
 export const toggleSidebar = (): Action => ({
   type: TOGGLE_SIDEBAR,
+});
+
+export const displayCategoryModal = (): Action => ({
+  type: DISPLAY_CATEGORY_MODAL,
 });
 
 export const setSelectedCircleId = (payload: string): Action => ({
@@ -91,5 +97,10 @@ export const deleteCategoryRequest = (payload: string): Action => ({
 
 export const deleteCategory = (payload: string): Action => ({
   type: DELETE_CATEGORY,
+  payload,
+});
+
+export const setLoading = (payload: boolean): Action => ({
+  type: SET_LOADING,
   payload,
 });

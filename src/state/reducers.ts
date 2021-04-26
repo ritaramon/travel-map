@@ -8,6 +8,8 @@ import {
   ADD_CATEGORY,
   SET_CATEGORIES,
   DELETE_CATEGORY,
+  SET_LOADING,
+  DISPLAY_CATEGORY_MODAL,
 } from "./constants";
 import { Action } from "./actions";
 import { combineReducers } from "redux";
@@ -16,6 +18,8 @@ import { Category, CellData } from "../globalTypes";
 type AppData = {
   isSidebarVisible: boolean;
   selectedCircleId: string;
+  loading: boolean;
+  isCategoryModalVisible: boolean;
 };
 
 type ApiData = {
@@ -33,8 +37,10 @@ export type AppState = {
 };
 
 const defaultAppData: AppData = {
-  isSidebarVisible: true,
+  isSidebarVisible: false,
   selectedCircleId: "",
+  loading: false,
+  isCategoryModalVisible: false,
 };
 
 const defaultApiData: ApiData = {
@@ -47,10 +53,22 @@ const defaultCategoriesData: CategoriesData = {
 
 const appData = (state = defaultAppData, action: Action): AppData => {
   switch (action.type) {
-    case TOGGLE_SIDEBAR:
+    case SET_LOADING:
+      return { ...state, loading: action.payload };
+    case TOGGLE_SIDEBAR: {
       return { ...state, isSidebarVisible: !state.isSidebarVisible };
+    }
     case SET_SELECTED_CIRCLE_ID:
-      return { ...state, selectedCircleId: action.payload };
+      return {
+        ...state,
+        selectedCircleId: action.payload,
+        isSidebarVisible: true,
+      };
+    case DISPLAY_CATEGORY_MODAL:
+      return {
+        ...state,
+        isCategoryModalVisible: !state.isCategoryModalVisible,
+      };
     default:
       return state;
   }

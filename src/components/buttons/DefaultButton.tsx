@@ -15,6 +15,7 @@ const DefaultButton: React.FC<
   border-radius: 2px;
   cursor: pointer;
   background-color: #678786;
+  text-transform: uppercase;
   color: #ffffff;
   margin: 16px 0;
   &:hover {

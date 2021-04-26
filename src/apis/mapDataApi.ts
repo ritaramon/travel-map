@@ -1,13 +1,14 @@
 import axios from "axios";
+import { auth } from "../config/firebaseConfig";
 import { apiBaseUrl, apiPaths } from "../constants/apiConstans";
 import { CellData, AddElementResponse } from "../globalTypes";
 
-export const getBoardElements = async (
-  boardData: number[]
-): Promise<CellData[]> => {
-  const apiPath = `${apiBaseUrl + apiPaths.getBoard}?x=${boardData[0]}&y=${
-    boardData[1]
-  }&w=${boardData[2]}&h=${boardData[3]}&userId=aaa`;
+export const getBoardElements = async (): Promise<CellData[]> => {
+  console.log(auth.currentUser?.uid);
+  const apiPath = `${
+    apiBaseUrl + apiPaths.getBoard
+  }?x=-90&y=-180&w=180&h=360&userId=${auth.currentUser?.uid}`;
+  console.log(apiPath);
 
   const request = axios(apiPath, {
     method: "GET",

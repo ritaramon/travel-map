@@ -5,39 +5,43 @@ import LoginPage from "./containers/login";
 import RegisterPage from "./containers/register";
 import AuthRoute from "./components/others/AuthRoute";
 import { auth } from "./config/firebaseConfig";
+import BeatLoader from "react-spinners/ClipLoader";
+import { useDispatch, useSelector } from "react-redux";
+import { AppState } from "./state/reducers";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  const appLoading = useSelector((state: AppState) => state.appData.loading);
 
   useEffect(() => {
     auth.onAuthStateChanged(() => {
       setLoading(false);
-      // getUserInfo();
     });
   }, []);
 
-  // const getUserInfo = async () => {
-  //   if (auth.currentUser) {
-  //     const { uid } = auth.currentUser;
-  //     const userDoc = dataCollection.doc(uid);
-  //     const userData = await userDoc.get();
-  //     const data = userData.data();
-  //     console.log(data?.count);
-  //     if (userData.exists) {
-  //       await userDoc.set({
-  //         count: data?.count + 10,
-  //       });
-  //     } else {
-  //       await userDoc.set({
-  //         count: 16,
-  //       });
-  //     }
-  //     console.log(data?.count);
-  //   }
-  // };
-  if (loading) return <div />;
+  const loaderStyles = `
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 5;
+  `;
+  if (loading)
+    return (
+      <BeatLoader
+        color="#678786"
+        loading={loading}
+        size={48}
+        css={loaderStyles}
+      />
+    );
   return (
     <>
+      <BeatLoader
+        color="#678786"
+        loading={appLoading}
+        size={48}
+        css={loaderStyles}
+      />
       <BrowserRouter>
         <Switch>
           <Route path="/login" exact component={LoginPage} />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
@@ -8,18 +8,13 @@ import Form from "../../components/others/Form";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
 import { auth } from "../../config/firebaseConfig";
+import { ErrorsTexts } from "../../constants/other";
 
 type RegistrationErrors = {
   email?: string;
   password?: string;
   passwordConfirm?: string;
 };
-
-enum ErrorMessageText {
-  email = "Invalid email format",
-  password = "Password must contain a digit",
-  passwordMatch = "Passwords must match",
-}
 
 const RegisterPage: React.FC = () => {
   const history = useHistory();
@@ -34,19 +29,16 @@ const RegisterPage: React.FC = () => {
     const passwordConfirm = form.passwordConfirm.value;
     const validationErrors: RegistrationErrors = {};
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      validationErrors.email = ErrorMessageText.email;
+      validationErrors.email = ErrorsTexts.invalidEmail;
     }
-    if (
-      !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8,})$/.test(password)
-    ) {
-      validationErrors.password = ErrorMessageText.password;
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password)) {
+      validationErrors.password = ErrorsTexts.invalidPassword;
     } else if (password !== passwordConfirm) {
-      validationErrors.passwordConfirm = ErrorMessageText.passwordMatch;
+      validationErrors.passwordConfirm = ErrorsTexts.passwordsDontMatch;
     }
-
     setFormErrors(validationErrors);
-    console.log(validationErrors);
-    if (Object.keys(formErrors).length) return;
+
+    if (!Object.values(validationErrors).every((error) => error === "")) return;
 
     auth
       .createUserWithEmailAndPassword(form.email.value, form.password.value)
@@ -63,8 +55,9 @@ const RegisterPage: React.FC = () => {
   return (
     <PageWrapper>
       <SectionWrapper fullHeight={true}>
-        <h2>Register</h2>
         <FormWrapper>
+          <h2>Sign Up</h2>
+          <p>Create an account</p>
           <Form onSubmit={handleRegisterFormSubmit}>
             <Input name="email" type="text" placeholder="Enter username" />
             <ErrorMessage>{formErrors.email}</ErrorMessage>
@@ -80,8 +73,11 @@ const RegisterPage: React.FC = () => {
               placeholder="Repeat password"
             />
             <ErrorMessage>{formErrors.passwordConfirm}</ErrorMessage>
-            <DefaultButton>Register</DefaultButton>
+            <DefaultButton>Sign up</DefaultButton>
           </Form>
+          <p>
+            Already have an account? <Link to="/login">Sign in!</Link>
+          </p>
         </FormWrapper>
       </SectionWrapper>
     </PageWrapper>
@@ -90,8 +86,10 @@ const RegisterPage: React.FC = () => {
 
 const FormWrapper = styled.div`
   padding: 32px 16px;
-  background-color: #f5f6f6;
+  background-color: #ffffff;
   width: 500px;
   max-width: 100%;
+  box-shadow: 0 0 20px 0 rgb(0 0 0 / 15%);
+  text-align: center;
 `;
 export default RegisterPage;

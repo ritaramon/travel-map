@@ -8,7 +8,8 @@ const ErroMessage: React.FC<Props> = ({ children }) => (
 );
 
 const Container = styled.span`
-  color: red;
+  color: #ea1601;
+  font-size: 14px;
 `;
 
 export default ErroMessage;

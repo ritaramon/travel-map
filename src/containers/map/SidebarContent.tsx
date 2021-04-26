@@ -3,13 +3,13 @@ import SectionWrapper from "../../components/wrappers/SectionWrapper";
 import { addBoardElement } from "../../apis/mapDataApi";
 import TextArea from "../../components/inputs/TextArea";
 import DefaultButton from "../../components/buttons/DefaultButton";
-import RedButton from "../../components/buttons/DeleteButton";
 import Form from "../../components/others/Form";
 import { AddElementResponse, CellData } from "../../globalTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCircleRequest, updateDataById } from "../../state/actions";
 import { AppState } from "../../state/reducers";
 import ColorSelect from "../../components/inputs/ColorSelect";
+import DeleteButton from "../../components/buttons/DeleteButton";
 
 const SidebarContent: React.FC = () => {
   const dispatch = useDispatch();
@@ -92,12 +92,10 @@ const SidebarContent: React.FC = () => {
       </SectionWrapper>
       {selectedCircleId && (
         <SectionWrapper>
-          <RedButton
+          <DeleteButton
             type="button"
             onClick={() => dispatch(deleteCircleRequest(selectedCircleId))}
-          >
-            DELETE
-          </RedButton>
+          />
         </SectionWrapper>
       )}
     </>

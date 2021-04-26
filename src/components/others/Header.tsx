@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import CircleButton from "../buttons/CircleButton";
-import { toggleSidebar } from "../../state/actions";
+import CircleButton from "../buttons/ToggleButton";
+import { displayCategoryModal, toggleSidebar } from "../../state/actions";
 import { useDispatch } from "react-redux";
 import { auth } from "../../config/firebaseConfig";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import DefaultLink from "./DefaultLink";
+import settingsIcon from "../../assets/icons/settingsIcon.png";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
@@ -21,9 +23,14 @@ const Header: React.FC = () => {
   return (
     <StyledHeader>
       <CircleButton onClick={() => dispatch(toggleSidebar())}></CircleButton>
-      <Link to="#" onClick={handleLogOut}>
-        Log out
-      </Link>
+      <div>
+        <DefaultLink to="#" onClick={() => dispatch(displayCategoryModal())}>
+          <img src={settingsIcon} /> Categories
+        </DefaultLink>
+        <DefaultLink to="#" onClick={handleLogOut}>
+          Log out
+        </DefaultLink>
+      </div>
     </StyledHeader>
   );
 };
@@ -36,8 +43,6 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   padding: 8px 16px;
   box-sizing: border-box;
-  -webkit-box-shadow: 0 0 20px 0 rgb(0 0 0 / 15%);
-  -moz-box-shadow: 0 0 20px 0 rgb(0 0 0 / 15%);
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 15%);
   z-index: 3;
   position: relative;

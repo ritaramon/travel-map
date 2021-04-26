@@ -41,7 +41,7 @@ const ColorPicker: React.FC<Props> = ({
         <Popover>
           <Cover onClick={handleClick} />
           <GithubPicker
-            width="125px"
+            width="112px"
             color={color}
             onChange={(e) => handleChange(e.hex)}
           />

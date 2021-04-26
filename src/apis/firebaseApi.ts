@@ -7,8 +7,6 @@ export const addCategory = async (
 ): Promise<
   firebase.firestore.DocumentReference<firebase.firestore.DocumentData>
 > => {
-  // const snapshot = await categoriesCollection.get();
-  // console.log(snapshot.docs.map((doc) => doc.id + " " + doc.data()));
   return await categoriesCollection.add({
     userId: auth.currentUser?.uid,
     name: data.name,

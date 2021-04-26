@@ -12,14 +12,6 @@ const ColorSelect: React.FC<Props> = ({
   options,
   onChange,
 }) => {
-  // const [selectedCategory, setSelectedCategory] = useState<string>(
-  //   defaultValue
-  // );
-
-  // const handleSelectChange = (value: any) => {
-  //   setSelectedCategory(value.value);
-  // };
-
   const index = options.findIndex(
     (option: any) => option.value == selectedOption
   );
@@ -39,7 +31,6 @@ const ColorSelect: React.FC<Props> = ({
 const dot = (color = "#ccc") => ({
   alignItems: "center",
   display: "flex",
-
   ":before": {
     backgroundColor: color,
     borderRadius: 10,
@@ -62,9 +53,9 @@ const styles = {
     ...styles,
     borderRadius: "2px",
     boxShadow: "none",
-    borderColor: "hsl(0, 0%, 80%)",
+    borderColor: "#dfe2e2",
     ":hover": {
-      borderColor: "hsl(0, 0%, 80%)",
+      borderColor: "#dfe2e2",
     },
   }),
 
@@ -72,7 +63,7 @@ const styles = {
     ...styles,
     ...dot(data.color),
   }),
-  option: (styles: any, { data, isDisabled, isFocused, isSelected }: any) => ({
+  option: (styles: any, { data, isSelected }: any) => ({
     ...styles,
     ...dot(data.color),
     backgroundColor: isSelected ? "#678786" : null,

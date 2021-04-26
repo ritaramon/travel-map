@@ -11,7 +11,8 @@ import * as actions from "../../state/actions";
 import { CellData } from "../../globalTypes";
 import MapElement from "./MapElement";
 import Header from "../../components/others/Header";
-import CategoriesModal from "./Modal";
+import CategoriesModal from "./CategoriesModal";
+import { auth } from "../../config/firebaseConfig";
 
 const MapPage: React.FC = () => {
   const featureGroup = useRef<FeatureGroup<
@@ -34,8 +35,7 @@ const MapPage: React.FC = () => {
     (state: AppState) => state.categoriesData.categories
   );
   useEffect(() => {
-    dispatch(actions.setCategoriesRequest());
-    dispatch(actions.fetchMapElements());
+    dispatch(actions.fetchMapDataRequest());
   }, []);
 
   const handleElementCreation = (event: LeafletMouseEvent) => {
@@ -50,7 +50,7 @@ const MapPage: React.FC = () => {
       const elementData: CellData = {
         x: event.layer._latlng.lat,
         y: event.layer._latlng.lng,
-        userId: "aaa",
+        userId: auth.currentUser?.uid,
         data: {
           name: "user123",
           color: "#000000",

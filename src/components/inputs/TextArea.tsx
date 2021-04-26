@@ -7,7 +7,7 @@ const TextArea: React.FC<
   width: 100%;
   padding: 8px;
   margin: 8px 0;
-  border: none;
+  border: 1px solid #dfe2e2;
   border-radius: 2px;
   box-sizing: border-box;
   outline: none;

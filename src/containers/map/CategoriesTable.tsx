@@ -10,17 +10,23 @@ import styled from "styled-components";
 
 const CategoriesTable: React.FC = () => {
   const dispatch = useDispatch();
+
   const categories: Category[] = useSelector(
     (state: AppState) => state.categoriesData.categories
   );
 
-  console.log(categories);
   const data = React.useMemo(
     () =>
       categories.map((category) => {
         return {
           col1: category.name,
-          col2: <ColorPicker disableSelect defaultColor={category.color} />,
+          col2: (
+            <ColorPicker
+              key={category.id}
+              disableSelect
+              defaultColor={category.color}
+            />
+          ),
           col3: (
             <DeleteButton
               onClick={() =>
@@ -28,9 +34,7 @@ const CategoriesTable: React.FC = () => {
                   ? dispatch(actions.deleteCategoryRequest(category.id))
                   : null
               }
-            >
-              delete
-            </DeleteButton>
+            />
           ),
           id: category.id,
         };
@@ -64,35 +68,57 @@ const CategoriesTable: React.FC = () => {
     prepareRow,
   } = useTable({ columns, data });
 
+  if (rows.length === 0)
+    return <div>You don&apos;t have any categories at the moment.</div>;
   return (
     <Styles>
       <table {...getTableProps()}>
         <thead>
-          {headerGroups.map((headerGroup: any, index: number) => (
-            <tr key={index} {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column: any, index: number) => (
-                <th key={index} {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </th>
-              ))}
-            </tr>
-          ))}
+          {headerGroups.map(
+            (
+              headerGroup: {
+                getHeaderGroupProps: () => JSX.IntrinsicAttributes &
+                  React.ClassAttributes<HTMLTableRowElement> &
+                  React.HTMLAttributes<HTMLTableRowElement>;
+                headers: any[];
+              },
+              index: number
+            ) => (
+              <tr key={index} {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, index: number) => (
+                  <th key={index} {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            )
+          )}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row: any, index: number) => {
-            prepareRow(row);
-            return (
-              <tr key={index} {...row.getRowProps()}>
-                {row.cells.map((cell: any, index: number) => {
-                  return (
-                    <td key={index} {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
+          {rows.map(
+            (
+              row: {
+                getRowProps: () => JSX.IntrinsicAttributes &
+                  React.ClassAttributes<HTMLTableRowElement> &
+                  React.HTMLAttributes<HTMLTableRowElement>;
+                cells: any[];
+              },
+              index: number
+            ) => {
+              prepareRow(row);
+              return (
+                <tr key={index} {...row.getRowProps()}>
+                  {row.cells.map((cell, index: number) => {
+                    return (
+                      <td key={index} {...cell.getCellProps()}>
+                        {cell.render("Cell")}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            }
+          )}
         </tbody>
       </table>
     </Styles>
@@ -101,28 +127,35 @@ const CategoriesTable: React.FC = () => {
 
 const Styles = styled.div`
   table {
-    border-spacing: 0 16px;
-    border-collapse: separate;
+    table-layout: fixed;
+    border-spacing: 0;
     width: 100%;
+    tbody tr:hover {
+      background-color: #dfe2e2;
+    }
+
     tr {
       padding: 16px 0;
-     border-radius: 25px
-      }
+      border-radius: 25px
+      background-color: #fffff;
     }
+    
     th {
-      text-transform: uppercase;
+
       font-weight: normal;
       letter-spacing: 2px;
+      
     }
     th,
     td {
       padding: 8px;
       text-align: center;
+     
     }
     td {
-      background-color: #fff;
-      font-weight: bold;
+     border-top: 1px solid #dfe2e2;
     }
+    
   }
 `;
 export default CategoriesTable;
