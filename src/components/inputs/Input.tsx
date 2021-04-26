@@ -12,6 +12,7 @@ const Input: React.FC<
   border-radius: 2px;
   box-sizing: border-box;
   outline: none;
+  font-size: 14px;
 `;
 
 export default Input;

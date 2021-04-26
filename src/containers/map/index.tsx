@@ -30,9 +30,12 @@ const MapPage: React.FC = () => {
   const selectedCircleId = useSelector(
     (state: AppState) => state.appData.selectedCircleId
   );
+  const categories = useSelector(
+    (state: AppState) => state.categoriesData.categories
+  );
   useEffect(() => {
-    dispatch(actions.fetchMapElements());
     dispatch(actions.setCategoriesRequest());
+    dispatch(actions.fetchMapElements());
   }, []);
 
   const handleElementCreation = (event: LeafletMouseEvent) => {
@@ -47,6 +50,7 @@ const MapPage: React.FC = () => {
       const elementData: CellData = {
         x: event.layer._latlng.lat,
         y: event.layer._latlng.lng,
+        userId: "aaa",
         data: {
           name: "user123",
           color: "#000000",
@@ -103,11 +107,15 @@ const MapPage: React.FC = () => {
             {mapElements.map((element) => {
               const id = element._id + "" + element.x + element.y;
               const isSelected = element._id === selectedCircleId;
+              const category = categories.find(
+                (category) => category.id === element.data.data.category
+              );
               return (
                 <MapElement
                   key={id}
                   element={element}
                   isSelected={isSelected}
+                  color={category?.color}
                 ></MapElement>
               );
             })}

@@ -8,12 +8,9 @@ interface Props {
   disableSelect?: boolean;
 }
 
-interface ColorProps {
-  color: string;
-}
-
 interface SwatchProps {
   disabled: boolean;
+  color: string;
 }
 
 const ColorPicker: React.FC<Props> = ({
@@ -37,15 +34,14 @@ const ColorPicker: React.FC<Props> = ({
     <div>
       <Swatch
         disabled={disableSelect}
+        color={color}
         onClick={() => !disableSelect && handleClick()}
-      >
-        <Color color={color} />
-      </Swatch>
+      ></Swatch>
       {displayColorPicker ? (
         <Popover>
           <Cover onClick={handleClick} />
           <GithubPicker
-            width="170px"
+            width="125px"
             color={color}
             onChange={(e) => handleChange(e.hex)}
           />
@@ -56,18 +52,13 @@ const ColorPicker: React.FC<Props> = ({
 };
 
 const Swatch = styled.div<SwatchProps>`
-  padding: 5px;
   background: #fff;
-  border-radius: 2px;
+  width: 32px;
+  height: 32px;
+  border-radius: 25px;
   display: inline-block;
-  cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
-`;
-
-const Color = styled.div<ColorProps>`
-  width: 36px;
-  height: 14px;
-  border-radius: 2px;
   background: ${(props) => props.color};
+  cursor: ${(props) => (props.disabled ? "auto" : "pointer")};
 `;
 
 const Popover = styled.div`

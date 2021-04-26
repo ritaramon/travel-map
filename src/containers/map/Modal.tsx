@@ -42,7 +42,6 @@ const CategoriesModal: React.FC = () => {
     } else {
       setFormError("");
     }
-    console.log("handlesubmit");
     dispatch(addCategoryRequest({ name: categoryName, color: categoryColor }));
     form.reset();
   };

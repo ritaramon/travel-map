@@ -8,9 +8,10 @@ import { setSelectedCircleId } from "../../state/actions";
 interface Props {
   element: CellData;
   isSelected: boolean;
+  color?: string;
 }
 
-const MapElement: React.FC<Props> = ({ element, isSelected }) => {
+const MapElement: React.FC<Props> = ({ element, isSelected, color }) => {
   const dispatch = useDispatch();
 
   const onCircleClick = (ev: LeafletEvent) => {
@@ -24,7 +25,7 @@ const MapElement: React.FC<Props> = ({ element, isSelected }) => {
       radius={element.data.data?.radius ?? 100}
       fillOpacity={isSelected ? 0.4 : 0.2}
       weight={isSelected ? 3 : 2}
-      color="#FCA311"
+      color={color ?? "#FCA311"}
       onClick={onCircleClick}
     />
   );

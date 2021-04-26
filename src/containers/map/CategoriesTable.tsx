@@ -6,6 +6,7 @@ import ColorPicker from "../../components/others/ColorPicker";
 import { Category } from "../../globalTypes";
 import { AppState } from "../../state/reducers";
 import * as actions from "../../state/actions";
+import styled from "styled-components";
 
 const CategoriesTable: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const CategoriesTable: React.FC = () => {
     (state: AppState) => state.categoriesData.categories
   );
 
+  console.log(categories);
   const data = React.useMemo(
     () =>
       categories.map((category) => {
@@ -30,6 +32,7 @@ const CategoriesTable: React.FC = () => {
               delete
             </DeleteButton>
           ),
+          id: category.id,
         };
       }),
     [categories]
@@ -62,53 +65,64 @@ const CategoriesTable: React.FC = () => {
   } = useTable({ columns, data });
 
   return (
-    <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
-      <thead>
-        {headerGroups.map((headerGroup: any, index: number) => (
-          <tr key={index} {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column: any, index: number) => (
-              <th
-                key={index}
-                {...column.getHeaderProps()}
-                style={{
-                  borderBottom: "solid 3px red",
-                  background: "aliceblue",
-                  color: "black",
-                  fontWeight: "bold",
-                }}
-              >
-                {column.render("Header")}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row: any, index: number) => {
-          prepareRow(row);
-          return (
-            <tr key={index} {...row.getRowProps()}>
-              {row.cells.map((cell: any, index: number) => {
-                return (
-                  <td
-                    key={index}
-                    {...cell.getCellProps()}
-                    style={{
-                      padding: "10px",
-                      border: "solid 1px gray",
-                      background: "papayawhip",
-                    }}
-                  >
-                    {cell.render("Cell")}
-                  </td>
-                );
-              })}
+    <Styles>
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup: any, index: number) => (
+            <tr key={index} {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column: any, index: number) => (
+                <th key={index} {...column.getHeaderProps()}>
+                  {column.render("Header")}
+                </th>
+              ))}
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row: any, index: number) => {
+            prepareRow(row);
+            return (
+              <tr key={index} {...row.getRowProps()}>
+                {row.cells.map((cell: any, index: number) => {
+                  return (
+                    <td key={index} {...cell.getCellProps()}>
+                      {cell.render("Cell")}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </Styles>
   );
 };
 
+const Styles = styled.div`
+  table {
+    border-spacing: 0 16px;
+    border-collapse: separate;
+    width: 100%;
+    tr {
+      padding: 16px 0;
+     border-radius: 25px
+      }
+    }
+    th {
+      text-transform: uppercase;
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+    th,
+    td {
+      padding: 8px;
+      text-align: center;
+    }
+    td {
+      background-color: #fff;
+      font-weight: bold;
+    }
+  }
+`;
 export default CategoriesTable;

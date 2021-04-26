@@ -1,6 +1,7 @@
 export type CellData = CellCoordinates & {
   _id?: string;
   pending?: boolean;
+  userId?: string;
   data: CellDataRadiusDetails;
 };
 
@@ -10,6 +11,7 @@ type CellDataRadiusDetails = {
   data: {
     radius: number;
     info?: string;
+    category?: string;
   };
   createdAt?: string;
 };

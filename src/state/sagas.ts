@@ -16,7 +16,12 @@ import { Category } from "../globalTypes";
 
 function* fetchElements(): Generator {
   try {
-    const elements: any = yield call(api.getBoardElements, [0, 0, 180, 90]);
+    const elements: any = yield call(api.getBoardElements, [
+      -90,
+      -180,
+      180,
+      360,
+    ]);
     yield put(actions.setData(elements));
   } catch (error) {
     console.log(error);
@@ -28,6 +33,7 @@ function* watchFetchMapElements() {
 }
 
 function* addElement(action: any): Generator {
+  console.log(action.payload);
   try {
     yield put(
       actions.updateDataByCoordinates({ ...action.payload, pending: true })

@@ -7,7 +7,7 @@ export const getBoardElements = async (
 ): Promise<CellData[]> => {
   const apiPath = `${apiBaseUrl + apiPaths.getBoard}?x=${boardData[0]}&y=${
     boardData[1]
-  }&w=${boardData[2]}&h=${boardData[3]}`;
+  }&w=${boardData[2]}&h=${boardData[3]}&userId=aaa`;
 
   const request = axios(apiPath, {
     method: "GET",
@@ -18,6 +18,7 @@ export const getBoardElements = async (
 export const addBoardElement = async (
   elementData: CellData
 ): Promise<AddElementResponse> => {
+  console.log;
   const apiPath = apiBaseUrl + apiPaths.postBoard;
   const request = axios({
     method: "POST",
@@ -25,9 +26,11 @@ export const addBoardElement = async (
     data: {
       x: elementData.x,
       y: elementData.y,
+      userId: elementData.userId,
       name: elementData.data.name,
       color: elementData.data.color,
       data: {
+        category: elementData.data.data.category,
         radius: elementData.data.data.radius,
         info: elementData.data.data.info,
       },

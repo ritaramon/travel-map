@@ -72,6 +72,7 @@
     "@types/react-modal": "^3.12.0",
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
+    "@types/react-select": "^4.0.15",
     "@types/react-sidebar": "^3.0.0",
     "@types/react-table": "^7.0.29",
     "@types/redux": "^3.6.0",
