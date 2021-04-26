@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
 import ErrorMessage from "../../components/messages/ErrorMessage";
+import DefaultLink from "../../components/others/DefaultLink";
 import Form from "../../components/others/Form";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
@@ -76,7 +77,8 @@ const RegisterPage: React.FC = () => {
             <DefaultButton>Sign up</DefaultButton>
           </Form>
           <p>
-            Already have an account? <Link to="/login">Sign in!</Link>
+            Already have an account?
+            <DefaultLink to="/login">Sign in!</DefaultLink>
           </p>
         </FormWrapper>
       </SectionWrapper>

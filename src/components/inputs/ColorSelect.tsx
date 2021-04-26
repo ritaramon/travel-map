@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Select, { NonceProvider } from "react-select";
+import React from "react";
+import Select from "react-select";
 
 interface Props {
   selectedOption: string;

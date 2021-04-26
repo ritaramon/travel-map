@@ -6,7 +6,7 @@ import RegisterPage from "./containers/register";
 import AuthRoute from "./components/others/AuthRoute";
 import { auth } from "./config/firebaseConfig";
 import BeatLoader from "react-spinners/ClipLoader";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { AppState } from "./state/reducers";
 
 const App: React.FC = () => {

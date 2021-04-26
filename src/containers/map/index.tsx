@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Map, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import { LeafletMouseEvent } from "leaflet";
@@ -10,7 +10,7 @@ import { AppState } from "../../state/reducers";
 import * as actions from "../../state/actions";
 import { CellData } from "../../globalTypes";
 import MapElement from "./MapElement";
-import Header from "../../components/others/Header";
+import Header from "./Header";
 import CategoriesModal from "./CategoriesModal";
 import { auth } from "../../config/firebaseConfig";
 

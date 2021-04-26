@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
@@ -11,6 +11,7 @@ import { auth } from "../../config/firebaseConfig";
 import { useMediaQuery } from "react-responsive";
 import globeIllustration from "../../assets/images/globeIllustration.png";
 import { ErrorsTexts } from "../../constants/other";
+import DefaultLink from "../../components/others/DefaultLink";
 
 type LoginErrors = {
   email?: string;
@@ -81,7 +82,7 @@ const LoginPage: React.FC = () => {
                 <ErrorMessage>{loginErrors?.serverError}</ErrorMessage>
                 <DefaultButton>LOGIN</DefaultButton>
                 Don&apos;t have an account yet?
-                <Link to="/register">Register!</Link>
+                <DefaultLink to="/register">Register!</DefaultLink>
               </Form>
             </FormWrapper>
           </Column>

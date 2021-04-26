@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import CircleButton from "../buttons/ToggleButton";
+import CircleButton from "../../components/buttons/ToggleButton";
 import { displayCategoryModal, toggleSidebar } from "../../state/actions";
 import { useDispatch } from "react-redux";
 import { auth } from "../../config/firebaseConfig";
 import { useHistory } from "react-router-dom";
-import DefaultLink from "./DefaultLink";
+import DefaultLink from "../../components/others/DefaultLink";
 import settingsIcon from "../../assets/icons/settingsIcon.png";
 
 const Header: React.FC = () => {
