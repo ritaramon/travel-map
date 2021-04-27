@@ -1,17 +1,9 @@
-export const TOGGLE_SIDEBAR = "TOGGLE_SIDEBAR";
-export const UPDATE_DATA_BY_ID = "UPDATE_DATA_BY_ID";
-export const UPDATE_DATA_BY_COORDINATES = "UPDATE_DATA_BY_COORDINATES";
-export const SET_DATA = "SET_DATA";
-export const DELETE_CIRCLE_REQUEST = "DELETE_CIRCLE_REQUEST";
-export const SET_SELECTED_CIRCLE_ID = "SET_SELECTED_CIRCLE_ID";
-export const FETCH_MAP_DATA_REQUEST = "FETCH_MAP_DATA_REQUEST";
-export const ADD_CIRCLE_REQUEST = "ADD_CIRCLE_REQUEST";
-export const DELETE_CIRCLE = "DELETE_CIRCLE";
-export const ADD_CATEGORY_REQUEST = "ADD_CATEGORY_REQUEST";
-export const ADD_CATEGORY = "ADD_CATEGORY";
-export const SET_CATEGORIES_REQUEST = "SET_CATEGORIES_REQUEST";
-export const SET_CATEGORIES = "SET_CATEGORIES";
-export const DELETE_CATEGORY_REQUEST = "DELETE_CATEGORY_REQUEST";
-export const DELETE_CATEGORY = "DELETE_CATEGORY";
-export const SET_LOADING = "SET_LOADING";
-export const DISPLAY_CATEGORY_MODAL = "DISPLAY_CATEGORY_MODAL";
+import { appConstants } from "./app/AppConstants";
+import { categoriesConstants } from "./categories/CategoriesConstants";
+import { circlesConstants } from "./circles/CirclesConstants";
+
+export const constants = {
+  app: appConstants,
+  categories: categoriesConstants,
+  circles: circlesConstants,
+};

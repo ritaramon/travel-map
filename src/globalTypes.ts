@@ -32,3 +32,8 @@ export type Category = {
   userId?: string;
   id?: string;
 };
+
+export type Action = {
+  type: string;
+  payload?: any;
+};

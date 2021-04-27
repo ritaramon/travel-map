@@ -6,7 +6,7 @@ import Form from "../../components/others/Form";
 import ColorPicker from "../../components/others/ColorPicker";
 import ErrorMessage from "../../components/messages/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
-import { addCategoryRequest, displayCategoryModal } from "../../state/actions";
+import { actions } from "../../state/actions";
 import CategoriesTable from "./CategoriesTable";
 import CloseButton from "../../components/buttons/CloseButton";
 import styled from "styled-components";
@@ -52,7 +52,12 @@ const CategoriesModal: React.FC = () => {
     } else {
       setFormError("");
     }
-    dispatch(addCategoryRequest({ name: categoryName, color: categoryColor }));
+    dispatch(
+      actions.categories.addCategoryRequest({
+        name: categoryName,
+        color: categoryColor,
+      })
+    );
     form.reset();
   };
 
@@ -60,7 +65,9 @@ const CategoriesModal: React.FC = () => {
     <ReactModal isOpen={isModalVisible} style={customStyles}>
       <ContentWrapper>
         <CloseButtonWrapper>
-          <CloseButton onClick={() => dispatch(displayCategoryModal())} />
+          <CloseButton
+            onClick={() => dispatch(actions.app.displayCategoryModal())}
+          />
         </CloseButtonWrapper>
         <h2>Categories</h2>
         <p>

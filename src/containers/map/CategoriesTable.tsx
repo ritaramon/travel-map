@@ -4,15 +4,15 @@ import { useTable } from "react-table";
 import DeleteButton from "../../components/buttons/DeleteButton";
 import ColorPicker from "../../components/others/ColorPicker";
 import { Category } from "../../globalTypes";
-import { AppState } from "../../state/reducers";
-import * as actions from "../../state/actions";
+import { actions } from "../../state/actions";
 import styled from "styled-components";
+import { State } from "../../state/reducers";
 
 const CategoriesTable: React.FC = () => {
   const dispatch = useDispatch();
 
   const categories: Category[] = useSelector(
-    (state: AppState) => state.categoriesData.categories
+    (state: State) => state.categoriesData.categories
   );
 
   const data = React.useMemo(
@@ -31,7 +31,9 @@ const CategoriesTable: React.FC = () => {
             <DeleteButton
               onClick={() =>
                 category.id
-                  ? dispatch(actions.deleteCategoryRequest(category.id))
+                  ? dispatch(
+                      actions.categories.deleteCategoryRequest(category.id)
+                    )
                   : null
               }
             />

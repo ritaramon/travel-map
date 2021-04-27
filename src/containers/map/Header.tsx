@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import CircleButton from "../../components/buttons/ToggleButton";
-import { displayCategoryModal, toggleSidebar } from "../../state/actions";
+import { actions } from "../../state/actions";
 import { useDispatch } from "react-redux";
 import { auth } from "../../config/firebaseConfig";
 import { useHistory } from "react-router-dom";
@@ -22,9 +22,14 @@ const Header: React.FC = () => {
   };
   return (
     <StyledHeader>
-      <CircleButton onClick={() => dispatch(toggleSidebar())}></CircleButton>
+      <CircleButton
+        onClick={() => dispatch(actions.app.setSidebarVisibility())}
+      ></CircleButton>
       <div>
-        <DefaultLink to="#" onClick={() => dispatch(displayCategoryModal())}>
+        <DefaultLink
+          to="#"
+          onClick={() => dispatch(actions.app.displayCategoryModal())}
+        >
           <img src={settingsIcon} /> Categories
         </DefaultLink>
         <DefaultLink to="#" onClick={handleLogOut}>

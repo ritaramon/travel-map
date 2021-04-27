@@ -7,7 +7,7 @@ import SidebarContent from "./SidebarContent";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../state/reducers";
-import * as actions from "../../state/actions";
+import { actions } from "../../state/actions";
 import { CellData } from "../../globalTypes";
 import MapElement from "./MapElement";
 import Header from "./Header";
@@ -25,18 +25,20 @@ const MapPage: React.FC = () => {
   > | null>(null);
 
   const dispatch = useDispatch();
-  const mapElements = useSelector((state: AppState) => state.apiData.data);
+  const mapElements = useSelector(
+    (state: AppState) => state.circlesData.circles
+  );
   const sidebarVisibility = useSelector(
     (state: AppState) => state.appData.isSidebarVisible
   );
   const selectedCircleId = useSelector(
-    (state: AppState) => state.appData.selectedCircleId
+    (state: AppState) => state.circlesData.selectedCircleId
   );
   const categories = useSelector(
     (state: AppState) => state.categoriesData.categories
   );
   useEffect(() => {
-    dispatch(actions.fetchMapDataRequest());
+    dispatch(actions.app.fetchMapDataRequest());
   }, []);
 
   const handleElementCreation = (event: LeafletMouseEvent) => {
@@ -62,7 +64,7 @@ const MapPage: React.FC = () => {
         },
       };
 
-      dispatch(actions.addCircle(elementData));
+      dispatch(actions.circles.addCircle(elementData));
     }
   };
 

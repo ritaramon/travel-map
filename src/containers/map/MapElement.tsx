@@ -3,7 +3,7 @@ import React from "react";
 import { Circle } from "react-leaflet";
 import { useDispatch } from "react-redux";
 import { CellData } from "../../globalTypes";
-import { setSelectedCircleId } from "../../state/actions";
+import { actions } from "../../state/actions";
 
 interface Props {
   element: CellData;
@@ -15,7 +15,7 @@ const MapElement: React.FC<Props> = ({ element, isSelected, color }) => {
   const dispatch = useDispatch();
 
   const onCircleClick = (ev: LeafletEvent) => {
-    dispatch(setSelectedCircleId(ev.target.options.id));
+    dispatch(actions.circles.setSelectedCircleId(ev.target.options.id));
   };
 
   return (

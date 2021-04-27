@@ -6,21 +6,23 @@ import DefaultButton from "../../components/buttons/DefaultButton";
 import Form from "../../components/others/Form";
 import { AddElementResponse, CellData } from "../../globalTypes";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCircleRequest, updateDataById } from "../../state/actions";
-import { AppState } from "../../state/reducers";
+import { actions } from "../../state/actions";
 import ColorSelect from "../../components/inputs/ColorSelect";
 import DeleteButton from "../../components/buttons/DeleteButton";
+import { AppState } from "../../state/reducers";
 
 const SidebarContent: React.FC = () => {
   const dispatch = useDispatch();
 
   const [selectedCategory, setSelectedCategory] = useState("");
-  const mapElements = useSelector((state: AppState) => state.apiData.data);
+  const mapElements = useSelector(
+    (state: AppState) => state.circlesData.circles
+  );
   const categories = useSelector(
     (state: AppState) => state.categoriesData.categories
   );
   const selectedCircleId = useSelector(
-    (state: AppState) => state.appData.selectedCircleId
+    (state: AppState) => state.circlesData.selectedCircleId
   );
 
   const defaultOption = { value: "Default", label: "Default", color: "orange" };
@@ -55,14 +57,15 @@ const SidebarContent: React.FC = () => {
     e.preventDefault();
     if (!info) return;
     const form = e.target as HTMLFormElement;
-    console.log(form.color.value);
     const elementInfo = { ...info };
     elementInfo.data.data.info = form.description.value;
     elementInfo.data.data.category = form.color.value;
 
+    // dispatch(updateCircleRequest(info));
+
     addBoardElement(elementInfo).then((response: AddElementResponse) => {
       if (response.status === 200) {
-        dispatch(updateDataById(elementInfo));
+        dispatch(actions.circles.updateDataById(elementInfo));
       }
     });
   };
@@ -94,7 +97,9 @@ const SidebarContent: React.FC = () => {
         <SectionWrapper>
           <DeleteButton
             type="button"
-            onClick={() => dispatch(deleteCircleRequest(selectedCircleId))}
+            onClick={() =>
+              dispatch(actions.circles.deleteCircleRequest(selectedCircleId))
+            }
           />
         </SectionWrapper>
       )}
