@@ -12,6 +12,7 @@ import {
 } from "./constants";
 import { auth } from "../config/firebaseConfig";
 import { Category } from "../globalTypes";
+import { Action } from "./actions";
 
 function* fetchMapData(): Generator {
   try {
@@ -39,7 +40,7 @@ function* watchFetchMapDataRequest() {
   yield takeEvery(FETCH_MAP_DATA_REQUEST, fetchMapData);
 }
 
-function* addElement(action: any): Generator {
+function* addElement(action: Action): Generator {
   try {
     yield put(
       actions.updateDataByCoordinates({ ...action.payload, pending: true })
@@ -59,7 +60,7 @@ function* watchAddElement() {
   yield takeEvery(ADD_CIRCLE_REQUEST, addElement);
 }
 
-function* deleteCircle(action: any): Generator {
+function* deleteCircle(action: Action): Generator {
   try {
     yield call(api.deleteBoardElement, action.payload);
     yield put(actions.deleteCircle(action.payload));
@@ -73,7 +74,7 @@ function* watchDeleteCircleRequest() {
   yield takeEvery(DELETE_CIRCLE_REQUEST, deleteCircle);
 }
 
-function* addCategory(action: any): Generator {
+function* addCategory(action: Action): Generator {
   try {
     action.payload.userId = auth.currentUser?.uid;
     const response: any = yield call(firebaseApi.addCategory, action.payload);
@@ -88,7 +89,7 @@ function* watchAddCategoryRequest() {
   yield takeEvery(ADD_CATEGORY_REQUEST, addCategory);
 }
 
-function* deleteCategory(action: any): Generator {
+function* deleteCategory(action: Action): Generator {
   try {
     yield put(actions.setLoading(true));
     yield call(firebaseApi.deleteCategory, action.payload);
