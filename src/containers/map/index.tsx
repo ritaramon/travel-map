@@ -13,6 +13,7 @@ import MapElement from "./MapElement";
 import Header from "./Header";
 import CategoriesModal from "./CategoriesModal";
 import { auth } from "../../config/firebaseConfig";
+import HowToModal from "./HowToModal";
 
 const MapPage: React.FC = () => {
   const featureGroup = useRef<FeatureGroup<
@@ -70,6 +71,7 @@ const MapPage: React.FC = () => {
       <Header />
       <PageWrapper>
         <CategoriesModal />
+        {!localStorage.getItem("howToModal") && <HowToModal />}
         <Sidebar
           docked={sidebarVisibility}
           sidebar={<SidebarContent />}

@@ -60,7 +60,7 @@ const RegisterPage: React.FC = () => {
           <h2>Sign Up</h2>
           <p>Create an account</p>
           <Form onSubmit={handleRegisterFormSubmit}>
-            <Input name="email" type="text" placeholder="Enter username" />
+            <Input name="email" type="text" placeholder="Enter email" />
             <ErrorMessage>{formErrors.email}</ErrorMessage>
             <Input
               name="password"

@@ -68,6 +68,10 @@ const LoginPage: React.FC = () => {
             </Column>
           )}
           <Column>
+            <h1>
+              Mark places on the map by <br />
+              creating circles!
+            </h1>
             <FormWrapper>
               <h2>Login</h2>
               <Form onSubmit={handleLoginFormSubmit}>
