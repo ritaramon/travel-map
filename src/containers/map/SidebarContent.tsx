@@ -64,11 +64,13 @@ const SidebarContent: React.FC<Props> = ({ selectedCircleId }) => {
     const form = e.target as HTMLFormElement;
     const description = form.description.value;
     const previousSelectedCategory = selectedCircle?.data.data.category;
+
     if (
       selectedCategory === previousSelectedCategory &&
       description === selectedCircleDescription
     )
       return;
+
     if (selectedCircle) {
       selectedCircle.data.data.info = description;
       selectedCircle.data.data.category = selectedCategory;

@@ -33,6 +33,7 @@ const MapPage: React.FC = () => {
       <PageWrapper>
         <Loader loading={appLoading} />
         <Message />
+
         <CategoriesModal />
         {!localStorage.getItem("howToModal") && <HowToModal />}
         <Sidebar
