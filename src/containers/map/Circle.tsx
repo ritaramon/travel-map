@@ -24,7 +24,7 @@ const Circle: React.FC<Props> = ({ element, isSelected, color }) => {
     <LeafletCircle
       id={element._id}
       center={[element.x, element.y]}
-      radius={element.data.data?.radius ?? 100}
+      radius={element.data?.data.radius}
       fillOpacity={isSelected ? 0.4 : 0.2}
       weight={isSelected ? 3 : 2}
       color={color ?? defaultCircleColor}

@@ -83,8 +83,8 @@ const Map: React.FC = () => {
         />
       </FeatureGroup>
       {circles.map((element) => {
-        const id = element._id;
-        const isSelected = id === selectedCircleId;
+        const id = element._id + "" + element.x + element.y;
+        const isSelected = element._id === selectedCircleId;
         const category = categories.find(
           (category) => category.id === element.data.data.category
         );

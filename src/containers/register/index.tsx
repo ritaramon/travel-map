@@ -5,7 +5,7 @@ import { ValidationErrors } from "../../constants/other";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
 import FormErrorMessage from "../../components/messages/FormErrorMessage";
-import DefaultLink from "../../components/others/DefaultLink";
+import DefaultLink from "../../components/Links/DefaultLink";
 import Form from "../../components/others/Form";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";

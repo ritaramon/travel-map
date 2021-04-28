@@ -7,7 +7,7 @@ import Form from "../../components/others/Form";
 import ShadowWrapper from "../../components/wrappers/ShadowWrapper";
 import { auth } from "../../config/firebaseConfig";
 import { ValidationErrors } from "../../constants/other";
-import DefaultLink from "../../components/others/DefaultLink";
+import DefaultLink from "../../components/Links/DefaultLink";
 
 type LoginErrors = {
   email?: string;

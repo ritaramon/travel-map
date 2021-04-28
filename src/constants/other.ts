@@ -12,3 +12,5 @@ export enum InfoMessages {
 }
 
 export const defaultCircleColor = "#FCA311";
+
+export const defaultCategoryColor = "#006B76";

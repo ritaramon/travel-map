@@ -10,11 +10,12 @@ import CategoriesTable from "./CategoriesTable";
 import { ValidationErrors } from "../../constants/other";
 import { AppState } from "../../state/reducers";
 import Modal from "../../components/others/Modal";
+import { defaultCategoryColor } from "../../constants/other";
 
 const CategoriesModal: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [categoryColor, setCategoryColor] = useState("#7BDCB5");
+  const [categoryColor, setCategoryColor] = useState(defaultCategoryColor);
   const [formError, setFormError] = useState("");
   const isModalVisible = useSelector(
     (state: AppState) => state.appData.isCategoryModalVisible
@@ -45,6 +46,7 @@ const CategoriesModal: React.FC = () => {
   const handleModalClose = () => {
     dispatch(actions.app.displayCategoryModal());
     setFormError("");
+    setCategoryColor(defaultCategoryColor);
   };
 
   return (

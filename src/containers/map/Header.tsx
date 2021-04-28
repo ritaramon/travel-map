@@ -5,7 +5,7 @@ import { actions } from "../../state/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../config/firebaseConfig";
 import { useHistory } from "react-router-dom";
-import DefaultLink from "../../components/others/DefaultLink";
+import HeaderLink from "../../components/Links/HeaderLink";
 import settingsIcon from "../../assets/icons/settingsIcon.png";
 import { AppState } from "../../state/reducers";
 
@@ -34,15 +34,15 @@ const Header: React.FC = () => {
       )}
 
       <LinkWrapper>
-        <DefaultLink
+        <HeaderLink
           to="#"
           onClick={() => dispatch(actions.app.displayCategoryModal())}
         >
           <img src={settingsIcon} /> Categories
-        </DefaultLink>
-        <DefaultLink to="#" onClick={handleLogOut}>
+        </HeaderLink>
+        <HeaderLink to="#" onClick={handleLogOut}>
           Log out
-        </DefaultLink>
+        </HeaderLink>
       </LinkWrapper>
     </StyledHeader>
   );

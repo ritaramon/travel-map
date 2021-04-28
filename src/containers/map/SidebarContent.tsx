@@ -4,6 +4,7 @@ import DefaultButton from "../../components/buttons/DefaultButton";
 import DeleteButton from "../../components/buttons/DeleteButton";
 import ColorSelect from "../../components/inputs/ColorSelect";
 import TextArea from "../../components/inputs/TextArea";
+import SidebarLink from "../../components/Links/SidebarLink";
 import Form from "../../components/others/Form";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
 import { defaultCircleColor } from "../../constants/other";
@@ -49,11 +50,13 @@ const SidebarContent: React.FC<Props> = ({ selectedCircleId }) => {
   ];
 
   useEffect(() => {
-    setSelectedCategory(
-      selectedCircle?.data.data.category ?? defaultSelectOption.value
-    );
+    let selectedCircleCategory = selectedCircle?.data.data.category;
+    if (!categories.some((category) => category.id == selectedCircleCategory)) {
+      selectedCircleCategory = defaultSelectOption.value;
+    }
+    setSelectedCategory(selectedCircleCategory ?? defaultSelectOption.value);
     formRef.current?.reset();
-  }, [selectedCircleId]);
+  }, [selectedCircleId, categories]);
 
   const handleSelectChange = (option: string) => {
     setSelectedCategory(option);
@@ -88,6 +91,12 @@ const SidebarContent: React.FC<Props> = ({ selectedCircleId }) => {
             selectedOption={selectedCategory}
             onChange={handleSelectChange}
           />
+          <SidebarLink
+            to="#"
+            onClick={() => dispatch(actions.app.displayCategoryModal())}
+          >
+            Manage categories
+          </SidebarLink>
           <TextArea
             name="description"
             rows={8}
