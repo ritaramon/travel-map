@@ -6,6 +6,11 @@ const setLoading = (payload: boolean): Action => ({
   payload,
 });
 
+const setUpdated = (payload: number): Action => ({
+  type: constants.app.SET_UPDATED,
+  payload,
+});
+
 const displayCategoryModal = (): Action => ({
   type: constants.app.DISPLAY_CATEGORY_MODAL,
 });
@@ -19,6 +24,7 @@ const setSidebarVisibility = (
 
 export const appActions = {
   setLoading,
+  setUpdated,
   displayCategoryModal,
   setSidebarVisibility,
 };

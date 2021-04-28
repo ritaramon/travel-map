@@ -1,19 +1,65 @@
-import React, { useRef, useEffect, useState } from "react";
-import SectionWrapper from "../../components/wrappers/SectionWrapper";
-import TextArea from "../../components/inputs/TextArea";
-import DefaultButton from "../../components/buttons/DefaultButton";
-import Form from "../../components/others/Form";
-import { CellData } from "../../types";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../state/actions";
-import ColorSelect from "../../components/inputs/ColorSelect";
+import styled, { keyframes } from "styled-components";
+import DefaultButton from "../../components/buttons/DefaultButton";
 import DeleteButton from "../../components/buttons/DeleteButton";
-import { AppState } from "../../state/reducers";
+import ColorSelect from "../../components/inputs/ColorSelect";
+import TextArea from "../../components/inputs/TextArea";
+import Form from "../../components/others/Form";
+import SectionWrapper from "../../components/wrappers/SectionWrapper";
 import { defaultCircleColor } from "../../constants/other";
+import { actions } from "../../state/actions";
+import { AppState } from "../../state/reducers";
 
 interface Props {
   selectedCircleId: string;
 }
+
+// Move this component to separate file
+const hideText = keyframes`
+  from {
+    height: 16px;
+  }
+
+  to {
+    height: 0;
+  }
+`;
+const UpdatedText = styled.div`
+  transition: all 1000ms;
+  width: 100%;
+  overflow: hidden;
+  animation: ${hideText} 1000ms 1000ms;
+  animation-fill-mode: both;
+  font-size: 16px;
+  line-height: 1;
+  text-align: center;
+  height: 16px;
+`;
+
+function MagicLoadingTestComponentForIndicatingThatYouUpdatedCircleOnTheMapMemeForLongName({
+  updated,
+}: {
+  updated: number;
+}) {
+  const [transitionEnd, setTransitionEnd] = useState(true);
+  const [prevUpdated, setPrevUpdated] = useState(updated);
+  const handleLoadingChange = useCallback(() => {
+    if (prevUpdated !== updated && transitionEnd) {
+      setTransitionEnd(false);
+      setTimeout(() => {
+        setTransitionEnd(true);
+        setPrevUpdated(updated);
+      }, 2000);
+    }
+  }, [prevUpdated, updated]);
+  useEffect(() => {
+    handleLoadingChange();
+  }, [updated, prevUpdated]);
+  return !transitionEnd ? <UpdatedText>Updated!</UpdatedText> : null;
+}
+
+//
 
 const SidebarContent: React.FC<Props> = ({ selectedCircleId }) => {
   const dispatch = useDispatch();
@@ -21,15 +67,13 @@ const SidebarContent: React.FC<Props> = ({ selectedCircleId }) => {
 
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const circles: CellData[] = useSelector(
-    (state: AppState) => state.circlesData.circles
-  );
-
   console.log(selectedCategory);
 
-  const categories = useSelector(
-    (state: AppState) => state.categoriesData.categories
-  );
+  const { categories, circles, updated } = useSelector((state: AppState) => ({
+    categories: state.categoriesData.categories,
+    circles: state.circlesData.circles,
+    updated: state.appData.updated,
+  }));
 
   const selectedCircle = circles.find(
     (circle) => circle._id === selectedCircleId
@@ -97,6 +141,9 @@ const SidebarContent: React.FC<Props> = ({ selectedCircleId }) => {
             rows={8}
             defaultValue={selectedCircleDescription}
             placeholder="Add details.."
+          />
+          <MagicLoadingTestComponentForIndicatingThatYouUpdatedCircleOnTheMapMemeForLongName
+            updated={updated}
           />
           <DefaultButton>SAVE</DefaultButton>
         </Form>
