@@ -5,13 +5,12 @@ import LoginPage from "./containers/login";
 import RegisterPage from "./containers/register";
 import AuthRoute from "./components/others/AuthRoute";
 import { auth } from "./config/firebaseConfig";
-import BeatLoader from "react-spinners/ClipLoader";
 import { useSelector } from "react-redux";
 import { AppState } from "./state/reducers";
+import Loader from "./components/others/Loader";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const appLoading = useSelector((state: AppState) => state.appData.loading);
 
   useEffect(() => {
     auth.onAuthStateChanged(() => {
@@ -19,39 +18,15 @@ const App: React.FC = () => {
     });
   }, []);
 
-  const loaderStyles = `
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 5;
-  `;
-
-  if (loading)
-    return (
-      <BeatLoader
-        color="#678786"
-        loading={loading}
-        size={48}
-        css={loaderStyles}
-      />
-    );
+  if (loading) return <Loader loading={loading} />;
   return (
-    <>
-      <BeatLoader
-        color="#678786"
-        loading={appLoading}
-        size={48}
-        css={loaderStyles}
-      />
-
-      <BrowserRouter>
-        <Switch>
-          <Route path="/login" exact component={LoginPage} />
-          <Route path="/register" exact component={RegisterPage} />
-          <AuthRoute path="/" exact component={MapPage} />
-        </Switch>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/login" exact component={LoginPage} />
+        <Route path="/register" exact component={RegisterPage} />
+        <AuthRoute path="/" exact component={MapPage} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 

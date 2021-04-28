@@ -1,15 +1,14 @@
-import React, { useRef, useEffect, useState } from "react";
-import SectionWrapper from "../../components/wrappers/SectionWrapper";
-import TextArea from "../../components/inputs/TextArea";
-import DefaultButton from "../../components/buttons/DefaultButton";
-import Form from "../../components/others/Form";
-import { CellData } from "../../types";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "../../state/actions";
-import ColorSelect from "../../components/inputs/ColorSelect";
+import DefaultButton from "../../components/buttons/DefaultButton";
 import DeleteButton from "../../components/buttons/DeleteButton";
-import { AppState } from "../../state/reducers";
+import ColorSelect from "../../components/inputs/ColorSelect";
+import TextArea from "../../components/inputs/TextArea";
+import Form from "../../components/others/Form";
+import SectionWrapper from "../../components/wrappers/SectionWrapper";
 import { defaultCircleColor } from "../../constants/other";
+import { actions } from "../../state/actions";
+import { AppState } from "../../state/reducers";
 
 interface Props {
   selectedCircleId: string;
@@ -21,15 +20,10 @@ const SidebarContent: React.FC<Props> = ({ selectedCircleId }) => {
 
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  const circles: CellData[] = useSelector(
-    (state: AppState) => state.circlesData.circles
-  );
-
-  console.log(selectedCategory);
-
-  const categories = useSelector(
-    (state: AppState) => state.categoriesData.categories
-  );
+  const { categories, circles } = useSelector((state: AppState) => ({
+    categories: state.categoriesData.categories,
+    circles: state.circlesData.circles,
+  }));
 
   const selectedCircle = circles.find(
     (circle) => circle._id === selectedCircleId

@@ -18,6 +18,7 @@ import { defaultCircleColor } from "../../constants/other";
 
 import styled from "styled-components";
 import Message from "../../components/messages/NotificationMessage";
+import Loader from "../../components/others/Loader";
 
 const MapPage: React.FC = () => {
   const featureGroup = useRef<FeatureGroup<
@@ -41,6 +42,7 @@ const MapPage: React.FC = () => {
   const categories = useSelector(
     (state: AppState) => state.categoriesData.categories
   );
+  const appLoading = useSelector((state: AppState) => state.appData.loading);
   useEffect(() => {
     dispatch(actions.circles.fetchCirclesAndCategoriesRequest());
   }, []);
@@ -74,6 +76,7 @@ const MapPage: React.FC = () => {
     <>
       <Header />
       <PageWrapper>
+        <Loader loading={appLoading} />
         <Message />
         <CategoriesModal />
         {!localStorage.getItem("howToModal") && <HowToModal />}
