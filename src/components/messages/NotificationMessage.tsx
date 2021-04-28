@@ -16,6 +16,7 @@ const Message: React.FC = () => (
 const StyledToaster = styled.div`
   .Toastify__toast {
     border-radius: 2px;
+    text-align: center;
   }
   .Toastify__toast--error {
     background-color: #d64933;
