@@ -1,9 +1,9 @@
 import axios from "axios";
 import { auth } from "../config/firebaseConfig";
 import { apiBaseUrl, apiPaths } from "../constants/apiConstans";
-import { CellData, addCircleResponse } from "../types";
+import { CircleElement, addCircleResponse } from "../types";
 
-export const getCircles = async (): Promise<CellData[]> => {
+export const getCircles = async (): Promise<CircleElement[]> => {
   const apiPath = `${
     apiBaseUrl + apiPaths.getBoard
   }?x=-90&y=-180&w=180&h=360&userId=${auth.currentUser?.uid}`;
@@ -15,7 +15,7 @@ export const getCircles = async (): Promise<CellData[]> => {
 };
 
 export const addCircleElement = async (
-  elementData: CellData
+  elementData: CircleElement
 ): Promise<addCircleResponse> => {
   const apiPath = apiBaseUrl + apiPaths.postBoard;
   const request = axios({

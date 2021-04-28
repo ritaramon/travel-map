@@ -1,7 +1,7 @@
-import { Action, CellData } from "../../types";
+import { Action, CircleElement } from "../../types";
 import { constants } from "../constants";
 
-const addCircle = (payload: CellData): Action => ({
+const addCircle = (payload: CircleElement): Action => ({
   type: constants.circles.ADD_CIRCLE_REQUEST,
   payload,
 });
@@ -11,12 +11,12 @@ const setSelectedCircleId = (payload: string): Action => ({
   payload,
 });
 
-const setCircles = (payload: CellData[]): Action => ({
+const setCircles = (payload: CircleElement[]): Action => ({
   type: constants.circles.SET_CIRCLES,
   payload,
 });
 
-const updateCircle = (payload: CellData): Action => ({
+const updateCircle = (payload: CircleElement): Action => ({
   type: constants.circles.UPDATE_CIRCLE,
   payload,
 });
@@ -31,7 +31,7 @@ const deleteCircleRequest = (payload: string): Action => ({
   payload,
 });
 
-const updateCircleRequest = (payload: CellData): Action => ({
+const updateCircleRequest = (payload: CircleElement): Action => ({
   type: constants.circles.UPDATE_CIRCLE_REQUEST,
   payload,
 });

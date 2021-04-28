@@ -5,8 +5,6 @@ import LoginPage from "./containers/login";
 import RegisterPage from "./containers/register";
 import AuthRoute from "./components/others/AuthRoute";
 import { auth } from "./config/firebaseConfig";
-import { useSelector } from "react-redux";
-import { AppState } from "./state/reducers";
 import Loader from "./components/others/Loader";
 
 const App: React.FC = () => {

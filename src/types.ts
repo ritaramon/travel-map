@@ -1,10 +1,10 @@
-export type CellData = CellCoordinates & {
+export type CircleElement = CircleCoordinates & {
   _id?: string;
   userId?: string;
-  data: CellDataRadiusDetails;
+  data: CircleElementRadiusDetails;
 };
 
-type CellDataRadiusDetails = {
+type CircleElementRadiusDetails = {
   name: string;
   color: string;
   data: {
@@ -15,7 +15,7 @@ type CellDataRadiusDetails = {
   createdAt?: string;
 };
 
-export type CellCoordinates = {
+export type CircleCoordinates = {
   x: number;
   y: number;
 };

@@ -3,11 +3,11 @@ import React from "react";
 import { Circle } from "react-leaflet";
 import { useDispatch } from "react-redux";
 import { defaultCircleColor } from "../../constants/other";
-import { CellData } from "../../types";
+import { CircleElement } from "../../types";
 import { actions } from "../../state/actions";
 
 type Props = {
-  element: CellData;
+  element: CircleElement;
   isSelected: boolean;
   color?: string;
 };

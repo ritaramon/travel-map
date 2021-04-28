@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import { call, put, takeEvery } from "redux-saga/effects";
 import * as categoriesApi from "../../apis/categoriesApi";
 import * as circlesApi from "../../apis/circlesApi";
-import { Action, Category, CellData } from "../../types";
+import { Action, Category, CircleElement } from "../../types";
 import { actions } from "../actions";
 import { constants } from "../constants";
 import { InfoMessages } from "../../constants/other";
@@ -48,7 +48,7 @@ function* deleteCircle(action: Action): Generator {
 function* fetchCirclesAndCategories(): Generator {
   try {
     yield put(actions.app.setLoading(true));
-    const elements = (yield call(circlesApi.getCircles)) as CellData[];
+    const elements = (yield call(circlesApi.getCircles)) as CircleElement[];
     yield put(actions.circles.setCircles(elements));
     const response = (yield call(categoriesApi.getCategories)) as Category[];
     const categories: Category[] = [];

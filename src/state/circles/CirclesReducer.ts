@@ -1,8 +1,8 @@
 import { constants } from "../constants";
-import { Action, CellData } from "../../types";
+import { Action, CircleElement } from "../../types";
 
 export type CirclesData = {
-  circles: CellData[];
+  circles: CircleElement[];
   selectedCircleId: string;
 };
 
