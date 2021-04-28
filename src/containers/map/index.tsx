@@ -16,6 +16,9 @@ import { auth } from "../../config/firebaseConfig";
 import HowToModal from "./HowToModal";
 import { defaultCircleColor } from "../../constants/other";
 
+import styled from "styled-components";
+import Message from "../../components/messages/NotificationMessage";
+
 const MapPage: React.FC = () => {
   const featureGroup = useRef<FeatureGroup<
     {
@@ -71,6 +74,7 @@ const MapPage: React.FC = () => {
     <>
       <Header />
       <PageWrapper>
+        <Message />
         <CategoriesModal />
         {!localStorage.getItem("howToModal") && <HowToModal />}
         <Sidebar
@@ -125,7 +129,7 @@ const MapPage: React.FC = () => {
                   element={element}
                   isSelected={isSelected}
                   color={category?.color}
-                ></MapElement>
+                />
               );
             })}
           </Map>

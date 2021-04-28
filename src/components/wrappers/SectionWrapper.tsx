@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-interface Props {
+type Props = {
   fullHeight?: boolean;
-}
+};
 
 const SectionWrapper = styled.div<Props>`
   padding: 16px;

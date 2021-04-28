@@ -3,14 +3,14 @@ import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
-import ErrorMessage from "../../components/messages/ErrorMessage";
+import FormErrorMessage from "../../components/messages/FormErrorMessage";
 import Form from "../../components/others/Form";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
 import { auth } from "../../config/firebaseConfig";
 import { useMediaQuery } from "react-responsive";
 import globeIllustration from "../../assets/images/globeIllustration.png";
-import { ErrorsTexts } from "../../constants/other";
+import { ValidationErrors } from "../../constants/other";
 import DefaultLink from "../../components/others/DefaultLink";
 
 type LoginErrors = {
@@ -34,10 +34,10 @@ const LoginPage: React.FC = () => {
     const email = form.email.value;
     const validationErrors: LoginErrors = {};
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      validationErrors.email = ErrorsTexts.invalidEmail;
+      validationErrors.email = ValidationErrors.invalidEmail;
     }
     if (!password) {
-      validationErrors.password = ErrorsTexts.emptyPassword;
+      validationErrors.password = ValidationErrors.emptyPassword;
     }
     setLoginErrors(validationErrors);
 
@@ -76,14 +76,14 @@ const LoginPage: React.FC = () => {
               <h2>Login</h2>
               <Form onSubmit={handleLoginFormSubmit}>
                 <Input name="email" type="text" placeholder="Enter email" />
-                <ErrorMessage>{loginErrors?.email}</ErrorMessage>
+                <FormErrorMessage>{loginErrors?.email}</FormErrorMessage>
                 <Input
                   name="password"
                   type="password"
                   placeholder="Enter password"
                 />
-                <ErrorMessage>{loginErrors?.password}</ErrorMessage>
-                <ErrorMessage>{loginErrors?.serverError}</ErrorMessage>
+                <FormErrorMessage>{loginErrors?.password}</FormErrorMessage>
+                <FormErrorMessage>{loginErrors?.serverError}</FormErrorMessage>
                 <DefaultButton>LOGIN</DefaultButton>
                 Don&apos;t have an account yet?
                 <DefaultLink to="/register">Register!</DefaultLink>

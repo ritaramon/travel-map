@@ -21,7 +21,7 @@ export const circlesReducer = (
     case constants.circles.UPDATE_CIRCLE: {
       const filteredCircles = state.circles.filter(
         (circle) =>
-          circle.x !== action.payload.x && circle.y !== action.payload.x
+          circle.x !== action.payload.x && circle.y !== action.payload.y
       );
       return { ...state, circles: [...filteredCircles, action.payload] };
     }

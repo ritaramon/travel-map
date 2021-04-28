@@ -1,25 +1,26 @@
-import { all, call, put, takeEvery } from "redux-saga/effects";
-import { actions } from "../actions";
-import * as circlesApi from "../../apis/circlesApi";
-import * as categoriesApi from "../../apis/categoriesApi";
-import { constants } from "../constants";
-import { Action } from "../../types";
 import firebase from "firebase/app";
-import { Category } from "../../types";
+import { call, put, takeEvery } from "redux-saga/effects";
+import * as categoriesApi from "../../apis/categoriesApi";
+import * as circlesApi from "../../apis/circlesApi";
+import { Action, Category, CellData } from "../../types";
+import { actions } from "../actions";
+import { constants } from "../constants";
+import { InfoMessages } from "../../constants/other";
+import { toast } from "react-toastify";
 
 function* addCircle(action: Action): Generator {
   try {
     yield put(actions.circles.updateCircle({ ...action.payload }));
-    const response: any = yield call(
+    const response = (yield call(
       circlesApi.addCircleElement,
       action.payload
-    );
+    )) as { id: string };
     action.payload._id = response.id;
     yield put(actions.circles.updateCircle({ ...action.payload }));
     yield put(actions.circles.setSelectedCircleId(response.id));
     yield put(actions.app.setSidebarVisibility(true));
   } catch (error) {
-    console.log(error);
+    yield call(toast.error, InfoMessages.errorMessage);
   }
 }
 
@@ -27,8 +28,9 @@ function* updateCircle(action: Action): Generator {
   try {
     yield call(circlesApi.addCircleElement, action.payload);
     yield put(actions.circles.updateCircle({ ...action.payload }));
+    yield call(toast.success, InfoMessages.updateMessage);
   } catch (error) {
-    console.log(error);
+    yield call(toast.error, InfoMessages.errorMessage);
   }
 }
 
@@ -39,16 +41,16 @@ function* deleteCircle(action: Action): Generator {
     yield put(actions.circles.setSelectedCircleId(""));
     yield put(actions.app.setSidebarVisibility(false));
   } catch (error) {
-    console.log(error);
+    yield call(toast.error, InfoMessages.errorMessage);
   }
 }
 
 function* fetchCirclesAndCategories(): Generator {
   try {
     yield put(actions.app.setLoading(true));
-    const elements: any = yield call(circlesApi.getCircles);
+    const elements = (yield call(circlesApi.getCircles)) as CellData[];
     yield put(actions.circles.setCircles(elements));
-    const response: any = yield call(categoriesApi.getCategories);
+    const response = (yield call(categoriesApi.getCategories)) as Category[];
     const categories: Category[] = [];
     response.forEach((doc: firebase.firestore.DocumentData) => {
       const category = doc.data();
@@ -59,7 +61,7 @@ function* fetchCirclesAndCategories(): Generator {
     });
     yield put(actions.categories.setCategories(categories));
   } catch (error) {
-    console.log(error);
+    yield call(toast.error, InfoMessages.errorMessage);
   } finally {
     yield put(actions.app.setLoading(false));
   }

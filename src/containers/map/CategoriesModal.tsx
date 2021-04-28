@@ -4,13 +4,13 @@ import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
 import Form from "../../components/others/Form";
 import ColorPicker from "../../components/others/ColorPicker";
-import ErrorMessage from "../../components/messages/ErrorMessage";
+import FormErrorMessage from "../../components/messages/FormErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../state/actions";
 import CategoriesTable from "./CategoriesTable";
 import CloseButton from "../../components/buttons/CloseButton";
 import styled from "styled-components";
-import { ErrorsTexts } from "../../constants/other";
+import { ValidationErrors } from "../../constants/other";
 import { AppState } from "../../state/reducers";
 
 const CategoriesModal: React.FC = () => {
@@ -47,7 +47,7 @@ const CategoriesModal: React.FC = () => {
     const form = e.target as HTMLFormElement;
     const categoryName: string = form.category.value.trim();
     if (!categoryName) {
-      setFormError(ErrorsTexts.categoryEmpty);
+      setFormError(ValidationErrors.categoryEmpty);
       return;
     } else {
       setFormError("");
@@ -84,7 +84,7 @@ const CategoriesModal: React.FC = () => {
             maxLength={25}
           />
           <DefaultButton>Add</DefaultButton>
-          <ErrorMessage>{formError}</ErrorMessage>
+          <FormErrorMessage>{formError}</FormErrorMessage>
         </Form>
         <CategoriesTable />
       </ContentWrapper>

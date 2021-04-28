@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { GithubPicker } from "react-color";
 import styled from "styled-components";
 
-interface Props {
+type Props = {
   onColorChange?: (color: string) => void;
   defaultColor?: string;
   disableSelect?: boolean;
-}
+};
 
-interface SwatchProps {
+type SwatchProps = {
   disabled: boolean;
   color: string;
-}
+};
 
 const ColorPicker: React.FC<Props> = ({
   defaultColor,

@@ -98,7 +98,7 @@ const SidebarContent: React.FC<Props> = ({ selectedCircleId }) => {
             defaultValue={selectedCircleDescription}
             placeholder="Add details.."
           />
-          <DefaultButton>SAVE</DefaultButton>
+          <DefaultButton>Update</DefaultButton>
         </Form>
       </SectionWrapper>
       <SectionWrapper>

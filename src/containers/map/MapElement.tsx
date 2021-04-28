@@ -6,11 +6,11 @@ import { defaultCircleColor } from "../../constants/other";
 import { CellData } from "../../types";
 import { actions } from "../../state/actions";
 
-interface Props {
+type Props = {
   element: CellData;
   isSelected: boolean;
   color?: string;
-}
+};
 
 const MapElement: React.FC<Props> = ({ element, isSelected, color }) => {
   const dispatch = useDispatch();

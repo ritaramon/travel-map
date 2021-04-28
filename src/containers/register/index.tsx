@@ -3,13 +3,13 @@ import { Redirect, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
-import ErrorMessage from "../../components/messages/ErrorMessage";
+import FormErrorMessage from "../../components/messages/FormErrorMessage";
 import DefaultLink from "../../components/others/DefaultLink";
 import Form from "../../components/others/Form";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
 import { auth } from "../../config/firebaseConfig";
-import { ErrorsTexts } from "../../constants/other";
+import { ValidationErrors } from "../../constants/other";
 
 type RegistrationErrors = {
   email?: string;
@@ -30,12 +30,12 @@ const RegisterPage: React.FC = () => {
     const passwordConfirm = form.passwordConfirm.value;
     const validationErrors: RegistrationErrors = {};
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      validationErrors.email = ErrorsTexts.invalidEmail;
+      validationErrors.email = ValidationErrors.invalidEmail;
     }
     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password)) {
-      validationErrors.password = ErrorsTexts.invalidPassword;
+      validationErrors.password = ValidationErrors.invalidPassword;
     } else if (password !== passwordConfirm) {
-      validationErrors.passwordConfirm = ErrorsTexts.passwordsDontMatch;
+      validationErrors.passwordConfirm = ValidationErrors.passwordsDontMatch;
     }
     setFormErrors(validationErrors);
 
@@ -61,19 +61,19 @@ const RegisterPage: React.FC = () => {
           <p>Create an account</p>
           <Form onSubmit={handleRegisterFormSubmit}>
             <Input name="email" type="text" placeholder="Enter email" />
-            <ErrorMessage>{formErrors.email}</ErrorMessage>
+            <FormErrorMessage>{formErrors.email}</FormErrorMessage>
             <Input
               name="password"
               type="password"
               placeholder="Enter password"
             />
-            <ErrorMessage>{formErrors.password}</ErrorMessage>
+            <FormErrorMessage>{formErrors.password}</FormErrorMessage>
             <Input
               name="passwordConfirm"
               type="password"
               placeholder="Repeat password"
             />
-            <ErrorMessage>{formErrors.passwordConfirm}</ErrorMessage>
+            <FormErrorMessage>{formErrors.passwordConfirm}</FormErrorMessage>
             <DefaultButton>Sign up</DefaultButton>
           </Form>
           <p>

@@ -43,6 +43,7 @@ const App: React.FC = () => {
         size={48}
         css={loaderStyles}
       />
+
       <BrowserRouter>
         <Switch>
           <Route path="/login" exact component={LoginPage} />

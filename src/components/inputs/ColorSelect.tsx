@@ -1,11 +1,11 @@
 import React from "react";
 import Select from "react-select";
 
-interface Props {
+type Props = {
   selectedOption: string;
   options: any;
   onChange: (option: string) => void;
-}
+};
 
 const ColorSelect: React.FC<Props> = ({
   selectedOption,
