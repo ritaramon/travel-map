@@ -21,18 +21,7 @@ export const addCircleElement = async (
   const request = axios({
     method: "POST",
     url: apiPath,
-    data: {
-      x: elementData.x,
-      y: elementData.y,
-      userId: elementData.userId,
-      name: elementData.data.name,
-      color: elementData.data.color,
-      data: {
-        category: elementData.data.data.category,
-        radius: elementData.data.data.radius,
-        info: elementData.data.data.info,
-      },
-    },
+    data: elementData,
   });
   const response = await request;
   return { status: response.status, id: response.data.id };

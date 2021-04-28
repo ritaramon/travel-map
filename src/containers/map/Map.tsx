@@ -7,7 +7,7 @@ import { AppState } from "../../state/reducers";
 import { CircleElement } from "../../types";
 import { Map as LeafletMap, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
-import MapElement from "./MapElement";
+import Circle from "./Circle";
 import { defaultCircleColor } from "../../constants/other";
 
 const Map: React.FC = () => {
@@ -83,13 +83,13 @@ const Map: React.FC = () => {
         />
       </FeatureGroup>
       {circles.map((element) => {
-        const id = element._id + "" + element.x + element.y;
-        const isSelected = element._id === selectedCircleId;
+        const id = element._id;
+        const isSelected = id === selectedCircleId;
         const category = categories.find(
           (category) => category.id === element.data.data.category
         );
         return (
-          <MapElement
+          <Circle
             key={id}
             element={element}
             isSelected={isSelected}

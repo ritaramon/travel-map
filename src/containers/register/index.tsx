@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
-import styled from "styled-components";
+import { Redirect } from "react-router-dom";
+import { auth } from "../../config/firebaseConfig";
+import { ValidationErrors } from "../../constants/other";
 import DefaultButton from "../../components/buttons/DefaultButton";
 import Input from "../../components/inputs/Input";
 import FormErrorMessage from "../../components/messages/FormErrorMessage";
@@ -8,8 +9,7 @@ import DefaultLink from "../../components/others/DefaultLink";
 import Form from "../../components/others/Form";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import SectionWrapper from "../../components/wrappers/SectionWrapper";
-import { auth } from "../../config/firebaseConfig";
-import { ValidationErrors } from "../../constants/other";
+import ShadowWrapper from "../../components/wrappers/ShadowWrapper";
 
 type RegistrationErrors = {
   email?: string;
@@ -18,8 +18,6 @@ type RegistrationErrors = {
 };
 
 const RegisterPage: React.FC = () => {
-  const history = useHistory();
-
   const [formErrors, setFormErrors] = useState<RegistrationErrors>({});
 
   const handleRegisterFormSubmit = (e: React.FormEvent) => {
@@ -43,9 +41,6 @@ const RegisterPage: React.FC = () => {
 
     auth
       .createUserWithEmailAndPassword(form.email.value, form.password.value)
-      .then(() => {
-        history.push("/login");
-      })
       .catch((e) => console.log(e));
   };
 
@@ -56,7 +51,7 @@ const RegisterPage: React.FC = () => {
   return (
     <PageWrapper>
       <SectionWrapper fullHeight={true}>
-        <FormWrapper>
+        <ShadowWrapper>
           <h2>Sign Up</h2>
           <p>Create an account</p>
           <Form onSubmit={handleRegisterFormSubmit}>
@@ -80,18 +75,10 @@ const RegisterPage: React.FC = () => {
             Already have an account?
             <DefaultLink to="/login">Sign in!</DefaultLink>
           </p>
-        </FormWrapper>
+        </ShadowWrapper>
       </SectionWrapper>
     </PageWrapper>
   );
 };
 
-const FormWrapper = styled.div`
-  padding: 32px 16px;
-  background-color: #ffffff;
-  width: 500px;
-  max-width: 100%;
-  box-shadow: 0 0 20px 0 rgb(0 0 0 / 15%);
-  text-align: center;
-`;
 export default RegisterPage;

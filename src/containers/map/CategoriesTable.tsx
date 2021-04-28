@@ -111,7 +111,7 @@ const CategoriesTable: React.FC = () => {
                 <tr key={index} {...row.getRowProps()}>
                   {row.cells.map((cell, index: number) => {
                     return (
-                      <td key={index} {...cell.getCircleProps()}>
+                      <td key={index} {...cell.getCellProps()}>
                         {cell.render("Cell")}
                       </td>
                     );

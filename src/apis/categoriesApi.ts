@@ -3,14 +3,13 @@ import { Category } from "../types";
 import firebase from "firebase/app";
 
 export const addCategory = async (
-  data: Category
+  categoryData: Category
 ): Promise<
   firebase.firestore.DocumentReference<firebase.firestore.DocumentData>
 > => {
   return await categoriesCollection.add({
     userId: auth.currentUser?.uid,
-    name: data.name,
-    color: data.color,
+    ...categoryData,
   });
 };
 
