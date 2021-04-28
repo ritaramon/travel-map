@@ -1,5 +1,5 @@
 import { auth, categoriesCollection } from "../config/firebaseConfig";
-import { Category } from "../globalTypes";
+import { Category } from "../types";
 import firebase from "firebase/app";
 
 export const addCategory = async (

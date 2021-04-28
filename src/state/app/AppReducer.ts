@@ -1,4 +1,4 @@
-import { Action } from "../../globalTypes";
+import { Action } from "../../types";
 import { constants } from "../constants";
 
 export type AppData = {
@@ -8,7 +8,7 @@ export type AppData = {
 };
 
 const defaultAppData: AppData = {
-  isSidebarVisible: true,
+  isSidebarVisible: false,
   loading: false,
   isCategoryModalVisible: false,
 };
@@ -18,7 +18,10 @@ export const appReducer = (state = defaultAppData, action: Action): AppData => {
     case constants.app.SET_LOADING:
       return { ...state, loading: action.payload };
     case constants.app.SET_SIDEBAR_VISIBILITY: {
-      return { ...state, isSidebarVisible: !state.isSidebarVisible };
+      return {
+        ...state,
+        isSidebarVisible: action.payload ?? !state.isSidebarVisible,
+      };
     }
     case constants.app.DISPLAY_CATEGORY_MODAL:
       return {

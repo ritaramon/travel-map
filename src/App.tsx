@@ -7,11 +7,11 @@ import AuthRoute from "./components/others/AuthRoute";
 import { auth } from "./config/firebaseConfig";
 import BeatLoader from "react-spinners/ClipLoader";
 import { useSelector } from "react-redux";
-import { State } from "./state/reducers";
+import { AppState } from "./state/reducers";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const appLoading = useSelector((state: State) => state.appData.loading);
+  const appLoading = useSelector((state: AppState) => state.appData.loading);
 
   useEffect(() => {
     auth.onAuthStateChanged(() => {
@@ -25,6 +25,7 @@ const App: React.FC = () => {
   top: 50%;
   z-index: 5;
   `;
+
   if (loading)
     return (
       <BeatLoader

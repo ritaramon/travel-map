@@ -3,16 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useTable } from "react-table";
 import DeleteButton from "../../components/buttons/DeleteButton";
 import ColorPicker from "../../components/others/ColorPicker";
-import { Category } from "../../globalTypes";
+import { Category } from "../../types";
 import { actions } from "../../state/actions";
 import styled from "styled-components";
-import { State } from "../../state/reducers";
+import { AppState } from "../../state/reducers";
 
 const CategoriesTable: React.FC = () => {
   const dispatch = useDispatch();
-
   const categories: Category[] = useSelector(
-    (state: State) => state.categoriesData.categories
+    (state: AppState) => state.categoriesData.categories
   );
 
   const data = React.useMemo(
@@ -160,4 +159,5 @@ const Styles = styled.div`
     
   }
 `;
+
 export default CategoriesTable;

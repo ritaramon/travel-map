@@ -1,4 +1,4 @@
-import { Action, Category } from "../../globalTypes";
+import { Action, Category } from "../../types";
 import { constants } from "../constants";
 
 export type CategoriesData = {
@@ -14,7 +14,7 @@ export const categoriesReducer = (
 ): CategoriesData => {
   switch (action.type) {
     case constants.categories.ADD_CATEGORY:
-      return { ...state, categories: [...state.categories, action.payload] };
+      return { ...state, categories: [action.payload, ...state.categories] };
     case constants.categories.SET_CATEGORIES:
       return { ...state, categories: action.payload };
     case constants.categories.DELETE_CATEGORY: {

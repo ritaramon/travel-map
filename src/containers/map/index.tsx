@@ -8,12 +8,13 @@ import PageWrapper from "../../components/wrappers/PageWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../state/reducers";
 import { actions } from "../../state/actions";
-import { CellData } from "../../globalTypes";
+import { CellData } from "../../types";
 import MapElement from "./MapElement";
 import Header from "./Header";
 import CategoriesModal from "./CategoriesModal";
 import { auth } from "../../config/firebaseConfig";
 import HowToModal from "./HowToModal";
+import { defaultCircleColor } from "../../constants/other";
 
 const MapPage: React.FC = () => {
   const featureGroup = useRef<FeatureGroup<
@@ -38,12 +39,11 @@ const MapPage: React.FC = () => {
     (state: AppState) => state.categoriesData.categories
   );
   useEffect(() => {
-    dispatch(actions.app.fetchMapDataRequest());
+    dispatch(actions.circles.fetchCirclesAndCategoriesRequest());
   }, []);
 
   const handleElementCreation = (event: LeafletMouseEvent) => {
     featureGroup?.current?.leafletElement.removeLayer(event.layer);
-    console.log(event.layer._latlng.lat + "" + event.layer._latlng.lng);
     if (
       -180 <= event.layer._latlng.lng &&
       event.layer._latlng.lng <= 180 &&
@@ -59,7 +59,6 @@ const MapPage: React.FC = () => {
           color: "#000000",
           data: {
             radius: event.layer._mRadius,
-            info: "",
           },
         },
       };
@@ -76,7 +75,13 @@ const MapPage: React.FC = () => {
         {!localStorage.getItem("howToModal") && <HowToModal />}
         <Sidebar
           docked={sidebarVisibility}
-          sidebar={<SidebarContent />}
+          sidebar={
+            selectedCircleId ? (
+              <SidebarContent selectedCircleId={selectedCircleId} />
+            ) : (
+              ""
+            )
+          }
           styles={{
             sidebar: { backgroundColor: "#f5f6f6", width: "240px" },
           }}
@@ -98,7 +103,7 @@ const MapPage: React.FC = () => {
                   marker: false,
                   circlemarker: false,
                   circle: {
-                    shapeOptions: { color: "#FCA311", weight: "2" },
+                    shapeOptions: { color: defaultCircleColor, weight: "2" },
                     showLength: false,
                     metric: false,
                     clickable: true,

@@ -1,4 +1,4 @@
-import { Action, CellData } from "../../globalTypes";
+import { Action, CellData } from "../../types";
 import { constants } from "../constants";
 
 const addCircle = (payload: CellData): Action => ({
@@ -11,18 +11,13 @@ const setSelectedCircleId = (payload: string): Action => ({
   payload,
 });
 
-const setData = (payload: CellData[]): Action => ({
-  type: constants.circles.SET_DATA,
+const setCircles = (payload: CellData[]): Action => ({
+  type: constants.circles.SET_CIRCLES,
   payload,
 });
 
-const updateDataById = (payload: CellData): Action => ({
-  type: constants.circles.UPDATE_DATA_BY_ID,
-  payload,
-});
-
-const updateDataByCoordinates = (payload: CellData): Action => ({
-  type: constants.circles.UPDATE_DATA_BY_COORDINATES,
+const updateCircle = (payload: CellData): Action => ({
+  type: constants.circles.UPDATE_CIRCLE,
   payload,
 });
 
@@ -36,12 +31,22 @@ const deleteCircleRequest = (payload: string): Action => ({
   payload,
 });
 
+const updateCircleRequest = (payload: CellData): Action => ({
+  type: constants.circles.UPDATE_CIRCLE_REQUEST,
+  payload,
+});
+
+const fetchCirclesAndCategoriesRequest = (): Action => ({
+  type: constants.circles.FETCH_CIRCLES_AND_CATEGORIES,
+});
+
 export const circlesActions = {
   addCircle,
   setSelectedCircleId,
-  setData,
-  updateDataById,
-  updateDataByCoordinates,
+  setCircles,
+  updateCircle,
   deleteCircle,
   deleteCircleRequest,
+  updateCircleRequest,
+  fetchCirclesAndCategoriesRequest,
 };

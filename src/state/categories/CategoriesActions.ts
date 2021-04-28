@@ -1,4 +1,4 @@
-import { Action, Category } from "../../globalTypes";
+import { Action, Category } from "../../types";
 import { constants } from "../constants";
 
 const setCategories = (payload: Category[]): Action => ({

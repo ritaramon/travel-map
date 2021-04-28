@@ -1,14 +1,12 @@
 import axios from "axios";
 import { auth } from "../config/firebaseConfig";
 import { apiBaseUrl, apiPaths } from "../constants/apiConstans";
-import { CellData, AddElementResponse } from "../globalTypes";
+import { CellData, addCircleResponse } from "../types";
 
-export const getBoardElements = async (): Promise<CellData[]> => {
-  console.log(auth.currentUser?.uid);
+export const getCircles = async (): Promise<CellData[]> => {
   const apiPath = `${
     apiBaseUrl + apiPaths.getBoard
   }?x=-90&y=-180&w=180&h=360&userId=${auth.currentUser?.uid}`;
-  console.log(apiPath);
 
   const request = axios(apiPath, {
     method: "GET",
@@ -16,10 +14,9 @@ export const getBoardElements = async (): Promise<CellData[]> => {
   return (await request).data;
 };
 
-export const addBoardElement = async (
+export const addCircleElement = async (
   elementData: CellData
-): Promise<AddElementResponse> => {
-  console.log;
+): Promise<addCircleResponse> => {
   const apiPath = apiBaseUrl + apiPaths.postBoard;
   const request = axios({
     method: "POST",
@@ -41,7 +38,9 @@ export const addBoardElement = async (
   return { status: response.status, id: response.data.id };
 };
 
-export const deleteBoardElement = async (circleId: string): Promise<number> => {
+export const deleteCircleElement = async (
+  circleId: string
+): Promise<number> => {
   const apiPath = apiBaseUrl + apiPaths.deleteCell;
   const request = axios({
     method: "POST",

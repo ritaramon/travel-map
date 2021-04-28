@@ -1,6 +1,5 @@
 export type CellData = CellCoordinates & {
   _id?: string;
-  pending?: boolean;
   userId?: string;
   data: CellDataRadiusDetails;
 };
@@ -21,7 +20,7 @@ export type CellCoordinates = {
   y: number;
 };
 
-export type AddElementResponse = {
+export type addCircleResponse = {
   status: number;
   id: string;
 };

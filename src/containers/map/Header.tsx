@@ -2,15 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import CircleButton from "../../components/buttons/ToggleButton";
 import { actions } from "../../state/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../config/firebaseConfig";
 import { useHistory } from "react-router-dom";
 import DefaultLink from "../../components/others/DefaultLink";
 import settingsIcon from "../../assets/icons/settingsIcon.png";
+import { AppState } from "../../state/reducers";
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const selectedCircleId = useSelector(
+    (state: AppState) => state.circlesData.selectedCircleId
+  );
 
   const handleLogOut = () => {
     auth
@@ -22,10 +27,13 @@ const Header: React.FC = () => {
   };
   return (
     <StyledHeader>
-      <CircleButton
-        onClick={() => dispatch(actions.app.setSidebarVisibility())}
-      ></CircleButton>
-      <div>
+      {selectedCircleId && (
+        <CircleButton
+          onClick={() => dispatch(actions.app.setSidebarVisibility())}
+        ></CircleButton>
+      )}
+
+      <LinkWrapper>
         <DefaultLink
           to="#"
           onClick={() => dispatch(actions.app.displayCategoryModal())}
@@ -35,7 +43,7 @@ const Header: React.FC = () => {
         <DefaultLink to="#" onClick={handleLogOut}>
           Log out
         </DefaultLink>
-      </div>
+      </LinkWrapper>
     </StyledHeader>
   );
 };
@@ -51,6 +59,10 @@ const StyledHeader = styled.header`
   box-shadow: 0 0 20px 0 rgb(0 0 0 / 15%);
   z-index: 3;
   position: relative;
+`;
+
+const LinkWrapper = styled.div`
+  margin-left: auto;
 `;
 
 export default Header;

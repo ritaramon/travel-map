@@ -5,3 +5,5 @@ export enum ErrorsTexts {
   passwordsDontMatch = "Passwords don't match!",
   categoryEmpty = "Category name is empty!",
 }
+
+export const defaultCircleColor = "#FCA311";

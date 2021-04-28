@@ -1,5 +1,5 @@
 import { constants } from "../constants";
-import { Action, CellData } from "../../globalTypes";
+import { Action, CellData } from "../../types";
 
 export type CirclesData = {
   circles: CellData[];
@@ -16,24 +16,18 @@ export const circlesReducer = (
   action: Action
 ): CirclesData => {
   switch (action.type) {
-    case constants.circles.SET_DATA:
+    case constants.circles.SET_CIRCLES:
       return { ...state, circles: action.payload };
-    case constants.circles.UPDATE_DATA_BY_ID: {
+    case constants.circles.UPDATE_CIRCLE: {
       const filteredCircles = state.circles.filter(
-        (circle) => circle._id !== action.payload._id
-      );
-      return { ...state, circles: [...filteredCircles, action.payload] };
-    }
-    case constants.circles.UPDATE_DATA_BY_COORDINATES: {
-      const filteredCircles = state.circles.filter(
-        (element) =>
-          element.x !== action.payload.x && element.y !== action.payload.x
+        (circle) =>
+          circle.x !== action.payload.x && circle.y !== action.payload.x
       );
       return { ...state, circles: [...filteredCircles, action.payload] };
     }
     case constants.circles.DELETE_CIRCLE: {
       const filteredCircles = state.circles.filter(
-        (x) => x._id !== action.payload
+        (circle) => circle._id !== action.payload
       );
       return { ...state, circles: filteredCircles };
     }
@@ -41,7 +35,6 @@ export const circlesReducer = (
       return {
         ...state,
         selectedCircleId: action.payload,
-        // isSidebarVisible: true,
       };
     default:
       return state;

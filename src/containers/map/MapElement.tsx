@@ -2,7 +2,8 @@ import { LeafletEvent } from "leaflet";
 import React from "react";
 import { Circle } from "react-leaflet";
 import { useDispatch } from "react-redux";
-import { CellData } from "../../globalTypes";
+import { defaultCircleColor } from "../../constants/other";
+import { CellData } from "../../types";
 import { actions } from "../../state/actions";
 
 interface Props {
@@ -16,6 +17,7 @@ const MapElement: React.FC<Props> = ({ element, isSelected, color }) => {
 
   const onCircleClick = (ev: LeafletEvent) => {
     dispatch(actions.circles.setSelectedCircleId(ev.target.options.id));
+    dispatch(actions.app.setSidebarVisibility(true));
   };
 
   return (
@@ -25,7 +27,7 @@ const MapElement: React.FC<Props> = ({ element, isSelected, color }) => {
       radius={element.data.data?.radius ?? 100}
       fillOpacity={isSelected ? 0.4 : 0.2}
       weight={isSelected ? 3 : 2}
-      color={color ?? "#FCA311"}
+      color={color ?? defaultCircleColor}
       onClick={onCircleClick}
     />
   );

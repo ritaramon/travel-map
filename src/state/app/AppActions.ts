@@ -1,4 +1,4 @@
-import { Action } from "../../globalTypes";
+import { Action } from "../../types";
 import { constants } from "../constants";
 
 const setLoading = (payload: boolean): Action => ({
@@ -10,17 +10,15 @@ const displayCategoryModal = (): Action => ({
   type: constants.app.DISPLAY_CATEGORY_MODAL,
 });
 
-const setSidebarVisibility = (): Action => ({
+const setSidebarVisibility = (
+  payload: boolean | undefined = undefined
+): Action => ({
   type: constants.app.SET_SIDEBAR_VISIBILITY,
-});
-
-const fetchMapDataRequest = (): Action => ({
-  type: constants.app.FETCH_MAP_DATA_REQUEST,
+  payload,
 });
 
 export const appActions = {
   setLoading,
   displayCategoryModal,
   setSidebarVisibility,
-  fetchMapDataRequest,
 };
