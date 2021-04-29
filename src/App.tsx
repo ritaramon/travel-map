@@ -18,7 +18,7 @@ const App: React.FC = () => {
 
   if (loading) return <Loader loading={loading} />;
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <Route path="/login" exact component={LoginPage} />
         <Route path="/register" exact component={RegisterPage} />
