@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { auth } from "../../config/firebaseConfig";
 import { ValidationErrors } from "../../constants/other";
 import DefaultButton from "../../components/buttons/DefaultButton";
@@ -18,6 +18,7 @@ type RegistrationErrors = {
 };
 
 const RegisterPage: React.FC = () => {
+  const history = useHistory();
   const [formErrors, setFormErrors] = useState<RegistrationErrors>({});
 
   const handleRegisterFormSubmit = (e: React.FormEvent) => {
@@ -41,6 +42,9 @@ const RegisterPage: React.FC = () => {
 
     auth
       .createUserWithEmailAndPassword(form.email.value, form.password.value)
+      .then(() => {
+        history.push("/");
+      })
       .catch((e) => console.log(e));
   };
 
