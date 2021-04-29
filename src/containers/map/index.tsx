@@ -6,7 +6,7 @@ import Sidebar from "react-sidebar";
 import SidebarContent from "./SidebarContent";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import Header from "./Header";
-import CategoriesModal from "./CategoriesModal";
+import CategoriesModal from "./categories/CategoriesModal";
 import HowToModal from "./HowToModal";
 import Message from "../../components/messages/NotificationMessage";
 import Loader from "../../components/others/Loader";
@@ -27,13 +27,14 @@ const MapPage: React.FC = () => {
     dispatch(actions.circles.fetchCirclesAndCategoriesRequest());
   }, []);
 
+  if (appLoading) {
+    return <Loader loading={appLoading} />;
+  }
   return (
     <>
       <Header />
       <PageWrapper>
-        <Loader loading={appLoading} />
         <Message />
-
         <CategoriesModal />
         {!localStorage.getItem("howToModal") && <HowToModal />}
         <Sidebar

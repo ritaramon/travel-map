@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 function* addCategory(action: Action): Generator {
   try {
-    yield put(actions.app.setLoading(true));
+    yield put(actions.categories.setCategoriesLoading(true));
     action.payload.userId = auth.currentUser?.uid;
     const response = (yield call(
       categoriesApi.addCategory,
@@ -21,19 +21,19 @@ function* addCategory(action: Action): Generator {
   } catch (error) {
     yield call(toast.error, InfoMessages.errorMessage);
   } finally {
-    yield put(actions.app.setLoading(false));
+    yield put(actions.categories.setCategoriesLoading(false));
   }
 }
 
 function* deleteCategory(action: Action): Generator {
   try {
-    yield put(actions.app.setLoading(true));
+    yield put(actions.categories.setCategoriesLoading(true));
     yield call(categoriesApi.deleteCategory, action.payload);
     yield put(actions.categories.deleteCategory(action.payload));
   } catch (error) {
     yield call(toast.error, InfoMessages.errorMessage);
   } finally {
-    yield put(actions.app.setLoading(false));
+    yield put(actions.categories.setCategoriesLoading(false));
   }
 }
 

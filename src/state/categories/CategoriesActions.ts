@@ -6,11 +6,6 @@ const setCategories = (payload: Category[]): Action => ({
   payload,
 });
 
-const setCategoriesRequest = (): Action => ({
-  type: constants.categories.SET_CATEGORIES_REQUEST,
-});
-// neaisku ar reik :)
-
 const addCategory = (payload: Category): Action => ({
   type: constants.categories.ADD_CATEGORY,
   payload,
@@ -31,11 +26,16 @@ const deleteCategoryRequest = (payload: string): Action => ({
   payload,
 });
 
+const setCategoriesLoading = (payload: boolean): Action => ({
+  type: constants.categories.SET_CATEGORIES_LOADING,
+  payload,
+});
+
 export const categoriesActions = {
   setCategories,
-  setCategoriesRequest,
   addCategory,
   addCategoryRequest,
   deleteCategory,
   deleteCategoryRequest,
+  setCategoriesLoading,
 };

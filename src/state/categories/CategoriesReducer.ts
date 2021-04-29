@@ -3,9 +3,11 @@ import { constants } from "../constants";
 
 export type CategoriesData = {
   categories: Category[];
+  loading: boolean;
 };
 const defaultCategoriesData: CategoriesData = {
   categories: [],
+  loading: false,
 };
 
 export const categoriesReducer = (
@@ -23,6 +25,8 @@ export const categoriesReducer = (
       );
       return { ...state, categories: filteredCategories };
     }
+    case constants.categories.SET_CATEGORIES_LOADING:
+      return { ...state, loading: action.payload };
     default:
       return state;
   }

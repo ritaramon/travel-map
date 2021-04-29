@@ -47,7 +47,6 @@ function* deleteCircle(action: Action): Generator {
 
 function* fetchCirclesAndCategories(): Generator {
   try {
-    yield put(actions.app.setLoading(true));
     const elements = (yield call(circlesApi.getCircles)) as CircleElement[];
     yield put(actions.circles.setCircles(elements));
     const response = (yield call(categoriesApi.getCategories)) as Category[];

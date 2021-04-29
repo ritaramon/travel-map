@@ -9,7 +9,7 @@ export type AppData = {
 
 const defaultAppData: AppData = {
   isSidebarVisible: false,
-  loading: false,
+  loading: true,
   isCategoryModalVisible: false,
 };
 
